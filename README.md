@@ -1,2 +1,2 @@
-# NomekoP
-RPG Battle Style Game
+# Wayne-Project1
+RPG Style Turn Based Battle Game

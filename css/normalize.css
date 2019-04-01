@@ -1,0 +1,44 @@
+/* Normalize CSS Properties */
+html,
+body {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    -webkit-box-sizing: inherit;
+}
+
+*,
+*:active,
+*:focus {
+    list-style: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    text-decoration: none;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    line-height: 1.5;
+    text-align: center;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    display: block;
