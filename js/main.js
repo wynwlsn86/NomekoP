@@ -1,10 +1,18 @@
 let player1 = [];
 let cpu = [];
 let yourTurn = true;
+let currentCharacter = null;
+let cpuCharacter = null;
+let cpuMove = 10;
 let characters = document.querySelectorAll('.characters');
 let topText = document.querySelector('.top-text');
 let startButton = document.querySelector('.start-button');
 let titleText = document.querySelector('.title-text');
+let battleMenu = document.querySelector('.battle-menu');
+let battleMoves = document.querySelectorAll('.moves');
+let characterName = document.querySelector('.character-name')
+let healthBar = document.querySelector('.healthBar');
+let health = document.querySelector('.health');
 let char1 = document.querySelector('#char1');
 let char2 = document.querySelector('#char2');
 let char3 = document.querySelector('#char3');
@@ -13,6 +21,82 @@ let char5 = document.querySelector('#char5');
 let char6 = document.querySelector('#char6');
 let charArray = [char1, char2, char3, char4, char5, char6];
 
+class Characters {
+    constructor(name, hp, move1, move2, move3, move4){
+        this.name = name;
+        this.hp = hp;
+        this.move1 = move1;
+        this.move2 = move2;
+        this.move3 = move3;
+        this.move4 = move4;
+    }
+    takeDmg(dmg) {
+        this.hp = this.hp - dmg;
+    }
+};
+
+//Character Class
+
+
+class Moves {
+    constructor(name, dmg, uses, animation){
+        this.name = name;
+        this.dmg = dmg;
+        this.uses = uses;
+        this.animation = animation;
+    }
+};
+
+//Moves Class
+
+let chargeBlast = new Moves('Charge Blast', 10, 8, '#');
+let dash = new Moves('Dash', 12, 4, '#');
+let topSpin = new Moves('Charge Blast', 14, 3, '#');
+let flameBlast= new Moves('Flame Blast', 20, 1, '#');
+//megaMan Moves
+
+let smash = new Moves('Smash', 20, 1, '#');
+let hop = new Moves('Hop', 10, 8, '#');
+let pound = new Moves('Pound', 14, 3, '#');
+let kick = new Moves('Kick', 12, 4, '#');
+//mario Moves
+let chomp = new Moves('Chomp', 10, 8, '#');
+let kirbyKick = new Moves('Kirby Kick', 12, 4, '#');
+let explode = new Moves('Explode', 14, 3, '#');
+let hurricaneBlast = new Moves('Hurricane Blast', 20, 1, '#');
+//kirby Moves
+let slice = new Moves('Slice', 10, 8, '#');
+let limitBreak = new Moves('Limit Break', 12, 4, '#');
+let omniSlash = new Moves('Omni Slash', 14, 3, '#');
+let knights = new Moves('Knights of the Round', 20, 1, '#');
+//cloud Moves
+let slash = new Moves('Slash', 10, 8, '#');
+let dukuNut = new Moves('Duku Nut', 12, 4, '#');
+let leapingSlash = new Moves('Leaping Slash', 14, 3, '#');
+let tornadoSlash = new Moves('Tornado Slash', 20, 1, '#');
+//link Moves
+let sonicPoke = new Moves('Sonic Poke', 10, 8, '#');
+let sonicKick = new Moves('Sonic Kick', 12, 4, '#');
+let sonicBlade = new Moves('Sonic Blade', 14, 3, '#');
+let sonicBoom = new Moves('Sonic Bloom', 20, 1, '#');
+//animations not set #############################################
+
+//Moves
+
+let megaMan = new Characters('Mega-Man', 200, chargeBlast, dash, topSpin, flameBlast);
+
+let mario = new Characters('Mario', 200, smash, hop, pound, kick);
+
+let kirby = new Characters('Kirby', 200, chomp, kirbyKick, explode, hurricaneBlast);
+
+let cloud = new Characters('Cloud', 200, slice, limitBreak, omniSlash, knights);
+
+let link = new Characters('Link', 200, slash, dukuNut, leapingSlash,tornadoSlash);
+
+let guile = new Characters('Guile', 200, sonicPoke, sonicKick, sonicBlade, sonicBoom);
+
+
+//Characters
 
 let dropStart = () => {
     startButton.style.animation = 'drop-in 4s ease-in-out forwards';
@@ -43,8 +127,6 @@ startButton.addEventListener('click', fadeIn);
 
 let disappear = (num) => {
     player1.push(charArray.splice(num,1));
-        console.log(charArray);
-        console.log(player1[num]);
     for(let i = 0; i < charArray.length; i++){
             charArray[i].style.display = 'none';
         }
@@ -53,55 +135,98 @@ let disappear = (num) => {
 
 let cpuChar = () => {
     let cpuRand = charArray[Math.floor(Math.random() * 5)];
-    cpu.push(cpuRand); 
+    charArray.splice(cpuRand, 1);
+    console.log(charArray);
+    if(cpuRand.id === char1){
+        cpuCharacter = mario;
+    }
+    if(cpuRand.id === char2){
+        cpuCharacter = kirby;
+    }
+    if(cpuRand.id === char3){
+        cpuCharacter = cloud;
+    }
+    if(cpuRand.id === char4){
+        cpuCharacter = link;
+    }
+    if(cpuRand.id === char5){
+        cpuCharacter = megaMan;
+    }
+    if(cpuRand.id === char6){
+        cpuCharacter = guile;
+    }
+    // cpuCharacter = cpuRand.id;
+    // console.log(cpuCharacter);
     cpuRand.style.display = 'block';
-    cpuRand.style.margin = '0% 0% 0% 80%';
-    console.log(cpu);
+    cpuRand.style.margin = '0% 0% 0% 75%';
 };
+let battleLift = () => {
+    battleMenu.style.animation = 'fade-in 5s ease-in-out 3s forwards';
+    battleMoves[0].innerText = currentCharacter.move1.name;
+    battleMoves[1].innerHTML = currentCharacter.move2.name;
+    battleMoves[2].innerHTML = currentCharacter.move3.name;
+    battleMoves[3].innerHTML = currentCharacter.move4.name;
+    characterName.innerHTML = currentCharacter.name;
+    battleMenu.style.display = 'block';
+    healthBar.style.display = 'block';
+}
+
 
 function selectChar () {
     if(this === char1){
+        currentCharacter = mario;
         disappear(0);
         cpuChar();
         this.style.postion = 'absolute';
-        this.style.marginTop = '200px';
+        this.style.marginTop = '100px';
         this.style.marginLeft = '10px';
         this.style.zIndex = '2';
+        battleLift();
     }
     if(this === char2){
+        currentCharacter = kirby;
         disappear(1);
         cpuChar();
         this.style.postion = 'absolute';
-        this.style.marginTop = '200px';
+        this.style.marginTop = '100px';
         this.style.zIndex = '2';
+        battleLift();
     }
     if(this === char3){
+        currentCharacter = cloud;
         disappear(2);
         cpuChar();
         this.style.position = 'absolute';
-        this.style.marginTop = '200px';
+        this.style.marginTop = '100px';
         this.style.zIndex = '2';
+        battleLift();
     }
     if(this === char4){
+        currentCharacter = link;
         disappear(3);
         cpuChar();
         this.style.position = 'absolute';
-        this.style.marginTop = '200px';
+        this.style.marginTop = '100px';
         this.style.zIndex = '2';
+        battleLift();
     }
     if(this === char5){
+        currentCharacter = megaMan;
         disappear(4);
         cpuChar();
         this.style.position = 'absolute';
-        this.style.marginTop = '200px';
+        this.style.marginTop = '100px';
         this.style.zIndex = '2';
+        battleLift();
     }
     if(this === char6){
+        currentCharacter = guile;
         disappear(5);
         cpuChar();
         this.style.position = 'absolute';
-        this.style.marginTop = '200px';
+        this.style.marginTop = '100px';
         this.style.zIndex = '2';
+        battleLift();
     }
 };
 
@@ -112,31 +237,36 @@ for(let i = 0; i < characters.length; i++){
 
 
 
+//10,12,14,20
+//5%, 6%, 7%, 10%
+
+function chooseMove () {
+    // console.log(currentCharacter.move1);
+    // console.log(this.id);
+//     if(this.id === 'move1'){
+//         currentCharacter.takeDmg(cpuMove);
+//         health.style.width = health.style.width - (cpuMove / 2);
+//     }
+//     if(this.id === 'move2'){
+//         currentCharacter.takeDmg(cpuMove);
+//         health.style.width = health.style.width - (cpuMove / 2);
+//     }
+//     if(this.id === 'move3'){
+//         currentCharacter.takeDmg(cpuMove);
+//         health.style.width = health.style.width - (cpuMove / 2);
+//     }
+//     if(this.id === 'move4'){
+//         currentCharacter.takeDmg(cpuMove);
+//         health.style.width = health.style.width - (cpuMove / 2);
+// };
+
+
+for(i = 0; i < battleMoves.length; i++){
+    battleMoves[i].addEventListener('click', chooseMove);
+};
 
 
 
-
-//make the battle menu appear
-
-
-
-
-
-
-
-
-
-//class out different characters
-
-
-
-
-
-
-
-
-
-//class out movesets
 
 
 
@@ -159,8 +289,8 @@ for(let i = 0; i < characters.length; i++){
 
 
 
-
-
+//##########Soo to do damage..... megaMan.takeDmg(character.move#.dmg);
+//##########This will change megaMan's health
 
 
 
