@@ -6,7 +6,9 @@ let cpuCharacter = null;
 let cpuMove = 0;
 let newHealth = 100;
 let damage = 0;
+let totalHealth;
 let updateHealth;
+let healthPrecent;
 let characters = document.querySelectorAll('.characters');
 let topText = document.querySelector('.top-text');
 let startButton = document.querySelector('.start-button');
@@ -31,7 +33,8 @@ class Characters {
         this.moves = moves;
     }
     takeDmg(dmg) {
-        this.hp = this.hp - dmg;
+        this.dmg = dmg;
+        this.hp = this.hp - this.dmg;
     }
 };
 
@@ -243,22 +246,36 @@ let chooseCpuMove = () => {
 
 
 let damageCalc = () => {
-    currentCharacter.takeDmg(currentCharacter);
-    damage = cpuMove.dmg / 2;
-    console.log(damage);
-    updateHealth = (updateHealth - damage);
-    console.log(updateHealth - damage);
-    // console.log(newHealth);
-    // console.log(updateHealth);
-    // newHealth = updateHealth;
-    health.style.width = updateHealth + '%';
-    if(updateHealth <= 60){
+    // console.log('current', currentCharacter.hp);
+    updateHealth = currentCharacter.hp;
+    console.log(updateHealth, 'prior');
+    
+    currentCharacter.takeDmg(cpuMove.dmg);
+    console.log(currentCharacter.hp, 'after dmg');
+    healthPrecent =  (currentCharacter.hp / 200) * 100;
+    console.log(healthPrecent, '%');
+    // console.log(cpuMove);
+    // console.log(currentCharacter.hp)
+    // currentCharacter.hp = currentCharacter.hp - cpuMove.dmg;
+    // console.log(currentCharacter.hp);
+    // currentCharacter.takeDmg(currentCharacter);
+    // damage = cpuMove.dmg / 2;
+    // console.log(damage);
+    // updateHealth = (updateHealth - damage);
+    // console.log(updateHealth - damage);
+    // // console.log(newHealth);
+    // // console.log(updateHealth);
+    // // newHealth = updateHealth;
+    // console.log(updateHealth / currentCharacter.hp);
+    
+    health.style.width = healthPrecent + '%';
+    if(healthPrecent <= 60){
         health.style.backgroundColor = 'yellow';
     };
-    if(updateHealth <= 30){
+    if(healthPrecent <= 30){
         health.style.backgroundColor = 'red';
     };
-    if(updateHealth <= 10){
+    if(healthPrecent <= 10){
         health.style.backgroundColor = 'rgb(88, 1, 1)';
     }
 };
@@ -267,21 +284,28 @@ let damageCalc = () => {
 
 function chooseMove () {
     if(this.id === 'move1'){
-        damageCalc();
         chooseCpuMove();
+        damageCalc();
+        // console.log('prior health' + currentCharacter.hp);
+        
+        // console.log(cpuMove);
+        // console.log(currentCharacter.hp);
         
     }
     if(this.id === 'move2'){
-        damageCalc();
         chooseCpuMove();
+        damageCalc();
+        // chooseCpuMove();
     }
     if(this.id === 'move3'){
-        damageCalc();
         chooseCpuMove();
+        damageCalc();
+        // chooseCpuMove();
     }
     if(this.id === 'move4'){
-        damageCalc();
         chooseCpuMove();
+        damageCalc();
+        // chooseCpuMove();
     }
 };
 
