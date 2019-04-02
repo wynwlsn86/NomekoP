@@ -83,7 +83,7 @@ h3{
 	z-index: 3;
 	margin-left: 830px;
 	margin-top: -40px;
-	/* display: none; */
+	display: none;
 	border-radius: 10px;
 }
 .cpu-health{

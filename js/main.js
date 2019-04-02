@@ -27,6 +27,8 @@ let battleMoves = document.querySelectorAll('.moves');
 let characterName = document.querySelector('.character-name')
 let healthBar = document.querySelector('.healthBar');
 let health = document.querySelector('.health');
+let cpuBar = document.querySelector('.cpuBar');
+let cpuHealthBar = document.querySelector('.cpu-health')
 let char1 = document.querySelector('#char1');
 let char2 = document.querySelector('#char2');
 let char3 = document.querySelector('#char3');
@@ -183,6 +185,7 @@ let battleLift = () => {
     characterName.innerHTML = currentCharacter.name;
     battleMenu.style.display = 'block';
     healthBar.style.display = 'block';
+    cpuBar.style.display = 'block';
 };
 
 
@@ -268,10 +271,10 @@ function chooseCpuMove () {
 
 
 let damageCalc = () => {
-    // console.log(currentCharacter.name);
-    // updateHealth = currentCharacter.hp;
     cpuCharacter.takeDmg(characterMove.dmg);
     cpuHealth = cpuCharacter.hp;
+    cpuHealthPrecent = (cpuCharacter.hp / 200) * 100;
+    cpuHealthBar.style.width = cpuHealthPrecent + '%';
     currentCharacter.takeDmg(cpuMove.dmg);
     healthPrecent =  (currentCharacter.hp / 200) * 100;
     health.style.width = healthPrecent + '%';
@@ -316,7 +319,20 @@ let damageCalc = () => {
         health.style.display = 'none';
 
     };
-    if (cpuHealth <= 0){
+    if(cpuHealthPrecent <= 60 && cpuHealthPrecent > 30){
+        console.log('yellow');
+        cpuHealthBar.style.backgroundColor = 'yellow';
+    }
+    else if(cpuHealthPrecent <= 30 && cpuHealthPrecent > 10){
+        console.log('red');
+        cpuHealthBar.style.backgroundColor = 'red';
+    }
+    else if(cpuHealthPrecent <= 10 && cpuHealthPrecent > 0){
+        console.log('deading');
+        cpuHealthBar.style.backgroundColor = 'rgb(88, 1, 1)';
+    }
+    else if(cpuHealthPrecent <= 0){
+        console.log('dead');
         if(cpuCharacter.name === 'Mario'){
             char1.style.display = 'none';
         }
@@ -335,15 +351,44 @@ let damageCalc = () => {
         if(cpuCharacter.name === 'Guile'){
             char6.style.display = 'none';
         }
-        battleMenu.style.display = 'none';
         titleText.style.display = 'block';
-        titleText.innerHTML = 'VICTORY!!!';
+        titleText.innerText = 'VICTORY!!!!';
         titleText.style.color = 'green';
-        setTimeout(function () {
-            titleText.style.display = 'none';
-            battleMenu.style.display = 'block';
-        }, 9000);
-    }; 
+        battleMenu.style.display = 'none';
+        healthBar.style.display = 'none';
+        health.style.display = 'none';
+
+    };
+
+
+    // if (cpuHealth <= 0){
+    //     if(cpuCharacter.name === 'Mario'){
+    //         char1.style.display = 'none';
+    //     }
+    //     if(cpuCharacter.name === 'Kirby'){
+    //         char2.style.display = 'none';
+    //     }
+    //     if(cpuCharacter.name === 'Cloud'){
+    //         char3.style.display = 'none';
+    //     }
+    //     if(cpuCharacter.name === 'Link'){
+    //         char4.style.display = 'none';
+    //     }
+    //     if(cpuCharacter.name === 'Mega-Man'){
+    //         char5.style.display = 'none';
+    //     }
+    //     if(cpuCharacter.name === 'Guile'){
+    //         char6.style.display = 'none';
+    //     }
+    //     battleMenu.style.display = 'none';
+    //     titleText.style.display = 'block';
+    //     titleText.innerHTML = 'VICTORY!!!';
+    //     titleText.style.color = 'green';
+    //     setTimeout(function () {
+    //         titleText.style.display = 'none';
+    //         battleMenu.style.display = 'block';
+    //     }, 9000);
+    // }; 
 };
 
 let pleaseWait = () => {
