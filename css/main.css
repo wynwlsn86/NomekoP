@@ -17,9 +17,6 @@ h1 {
 h3{
 	font-size: 20pt;
 }
-/* button{
-	margin-top: 100px;
-} */
 @keyframes fade-in{
 	100%{
 		opacity: 1;
@@ -58,7 +55,7 @@ h3{
 	text-align: left;
 	padding: 10px 50px 10px 50px;
 	border-radius: 10px;
-	background-color: #8b8852;
+	background-image: linear-gradient(hsl(39, 66%, 26%), #e6bf42, hsl(39, 66%, 26%));
 	opacity: .8;
 	margin-left: 20px;
 	margin-top: 280px;
@@ -96,14 +93,19 @@ h3{
 	position: absolute;
 	font-style: italic;
 }
+.cpu-name{
+	position: absolute;
+	font-style: italic;
+	text-align: right;
+}
 .cpu-move{
-	background-color: #8b8852;
+	background-image: linear-gradient(hsl(39, 66%, 26%), #e6bf42, hsl(39, 66%, 26%));
 	height: 200px;
 	width: 300px;
 	position: absolute;
 	border-radius: 10px;
 	z-index: 3;
-	margin: 200px 0px 0px 900px;
+	margin: 200px 0px 0px 880px;
 	display: none;
 } 
 .cpu-move-result{

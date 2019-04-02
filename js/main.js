@@ -29,6 +29,7 @@ let healthBar = document.querySelector('.healthBar');
 let health = document.querySelector('.health');
 let cpuBar = document.querySelector('.cpuBar');
 let cpuHealthBar = document.querySelector('.cpu-health')
+let cpuName = document.querySelector('.cpu-name');
 let char1 = document.querySelector('#char1');
 let char2 = document.querySelector('#char2');
 let char3 = document.querySelector('#char3');
@@ -183,6 +184,7 @@ let battleLift = () => {
     battleMoves[2].innerHTML = currentCharacter.moves[2].name;
     battleMoves[3].innerHTML = currentCharacter.moves[3].name;
     characterName.innerHTML = currentCharacter.name;
+    cpuName.innerHTML = cpuCharacter.name;
     battleMenu.style.display = 'block';
     healthBar.style.display = 'block';
     cpuBar.style.display = 'block';
