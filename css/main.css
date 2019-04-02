@@ -71,6 +71,7 @@ h3{
 }
  .character-name{
 	position: absolute;
+	font-style: italic;
 }
 .cpu-move{
 	background-color: #8b8852;
