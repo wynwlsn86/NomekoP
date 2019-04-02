@@ -82,6 +82,9 @@ h3{
 	margin: 200px 0px 0px 900px;
 	display: none;
 } 
+.cpu-move-result{
+	margin-top: 20%;
+}
 .border{
 	cursor: pointer;
 }

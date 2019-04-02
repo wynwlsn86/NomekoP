@@ -15,6 +15,7 @@ let startButton = document.querySelector('.start-button');
 let titleText = document.querySelector('.title-text');
 let battleMenu = document.querySelector('.battle-menu');
 let cpuMenu = document.querySelector('.cpu-move');
+let showCpuMove = document.querySelector('.cpu-move-result');
 let battleMoves = document.querySelectorAll('.moves');
 let characterName = document.querySelector('.character-name')
 let healthBar = document.querySelector('.healthBar');
@@ -243,6 +244,7 @@ for(let i = 0; i < characters.length; i++){
 let chooseCpuMove = () => {
     let randomNum = Math.floor(Math.random() * 4);
     cpuMove = cpuCharacter.moves[randomNum];
+    showCpuMove.innerText = cpuMove.name;
     let addMenu = () => {
         cpuMenu.style.display = 'block';
     };
