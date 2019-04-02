@@ -6,7 +6,9 @@ let cpuCharacter = null;
 let cpuMove = 0;
 let newHealth = 100;
 let damage = 0;
+let totalHealth;
 let updateHealth;
+let healthPrecent;
 let characters = document.querySelectorAll('.characters');
 let topText = document.querySelector('.top-text');
 let startButton = document.querySelector('.start-button');
@@ -244,12 +246,14 @@ let chooseCpuMove = () => {
 
 
 let damageCalc = () => {
-    console.log('current', currentCharacter.hp);
+    // console.log('current', currentCharacter.hp);
     updateHealth = currentCharacter.hp;
-    console.log(updateHealth, 'updated');
+    console.log(updateHealth, 'prior');
     
     currentCharacter.takeDmg(cpuMove.dmg);
-    
+    console.log(currentCharacter.hp, 'after dmg');
+    healthPrecent =  (currentCharacter.hp / 200) * 100;
+    console.log(healthPrecent, '%');
     // console.log(cpuMove);
     // console.log(currentCharacter.hp)
     // currentCharacter.hp = currentCharacter.hp - cpuMove.dmg;
@@ -264,16 +268,16 @@ let damageCalc = () => {
     // // newHealth = updateHealth;
     // console.log(updateHealth / currentCharacter.hp);
     
-//     health.style.width = updateHealth + '%';
-//     if(updateHealth <= 60){
-//         health.style.backgroundColor = 'yellow';
-//     };
-//     if(updateHealth <= 30){
-//         health.style.backgroundColor = 'red';
-//     };
-//     if(updateHealth <= 10){
-//         health.style.backgroundColor = 'rgb(88, 1, 1)';
-//     }
+    health.style.width = healthPrecent + '%';
+    if(healthPrecent <= 60){
+        health.style.backgroundColor = 'yellow';
+    };
+    if(healthPrecent <= 30){
+        health.style.backgroundColor = 'red';
+    };
+    if(healthPrecent <= 10){
+        health.style.backgroundColor = 'rgb(88, 1, 1)';
+    }
 };
 
 
@@ -282,21 +286,24 @@ function chooseMove () {
     if(this.id === 'move1'){
         chooseCpuMove();
         damageCalc();
-        console.log('prior health' + currentCharacter.hp);
+        // console.log('prior health' + currentCharacter.hp);
         
-        console.log(cpuMove);
-        console.log(currentCharacter.hp);
+        // console.log(cpuMove);
+        // console.log(currentCharacter.hp);
         
     }
     if(this.id === 'move2'){
+        chooseCpuMove();
         damageCalc();
         // chooseCpuMove();
     }
     if(this.id === 'move3'){
+        chooseCpuMove();
         damageCalc();
         // chooseCpuMove();
     }
     if(this.id === 'move4'){
+        chooseCpuMove();
         damageCalc();
         // chooseCpuMove();
     }
