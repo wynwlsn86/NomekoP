@@ -3,8 +3,10 @@ let cpu = [];
 let yourTurn = true;
 let currentCharacter = null;
 let cpuCharacter = null;
-let cpuMove = 10;
+let cpuMove = 0;
 let newHealth = 100;
+let damage = 0;
+let updateHealth;
 let characters = document.querySelectorAll('.characters');
 let topText = document.querySelector('.top-text');
 let startButton = document.querySelector('.start-button');
@@ -137,33 +139,21 @@ let cpuChar = () => {
     // console.log(cpuCharacter);
     if(cpuRand.id === 'char1'){
         cpuCharacter = mario;
-        console.log(cpuCharacter);
-        console.log('mario');
     }
     if(cpuRand.id === 'char2'){
         cpuCharacter = kirby;
-        console.log(cpuCharacter);
-        console.log('kirby');
     }
     if(cpuRand.id === 'char3'){
         cpuCharacter = cloud;
-        console.log(cpuCharacter);
-        console.log('cloud');
     }
     if(cpuRand.id === 'char4'){
         cpuCharacter = link;
-        console.log(cpuCharacter);
-        console.log('link');
     }
     if(cpuRand.id === 'char5'){
         cpuCharacter = megaMan;
-        console.log(cpuCharacter);
-        console.log('megaman');
     }
     if(cpuRand.id === 'char6'){
         cpuCharacter = guile;
-        console.log(cpuCharacter);
-        console.log('guile');
     }
     cpuRand.style.display = 'block';
     cpuRand.style.margin = '0% 0% 0% 75%';
@@ -246,45 +236,52 @@ for(let i = 0; i < characters.length; i++){
 };
 //This whole section selects a character for player and cpu and makes others dissappear. Will also put the 2 characters in the right postions for battle
 
+let chooseCpuMove = () => {
+    let randomNum = Math.floor(Math.random() * 4);
+    cpuMove = cpuCharacter.moves[randomNum];
+};
 
 
-//10,12,14,20
-//5%, 6%, 7%, 10%
 let damageCalc = () => {
     currentCharacter.takeDmg(currentCharacter);
-    let damage = cpuMove / 2;
-    newHealth = newHealth - damage;
-    health.style.width = newHealth + '%';
-    if(newHealth <= 60){
+    damage = cpuMove.dmg / 2;
+    console.log(damage);
+    updateHealth = (updateHealth - damage);
+    console.log(updateHealth - damage);
+    // console.log(newHealth);
+    // console.log(updateHealth);
+    // newHealth = updateHealth;
+    health.style.width = updateHealth + '%';
+    if(updateHealth <= 60){
         health.style.backgroundColor = 'yellow';
     };
-    if(newHealth <= 30){
+    if(updateHealth <= 30){
         health.style.backgroundColor = 'red';
     };
-    if(newHealth <= 10){
+    if(updateHealth <= 10){
         health.style.backgroundColor = 'rgb(88, 1, 1)';
     }
 };
 
-let chooseCpuMove = () => {
-    let randomNum = Math.floor(Math.random() * 4);
-    cpuMove = cpuChararacter.moves[randomNum];
-    // console.log(cpuChararacter.moves[randomNum]);
-};
 
 
 function chooseMove () {
     if(this.id === 'move1'){
         damageCalc();
+        chooseCpuMove();
+        
     }
     if(this.id === 'move2'){
         damageCalc();
+        chooseCpuMove();
     }
     if(this.id === 'move3'){
         damageCalc();
+        chooseCpuMove();
     }
     if(this.id === 'move4'){
         damageCalc();
+        chooseCpuMove();
     }
 };
 
