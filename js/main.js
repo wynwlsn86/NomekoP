@@ -16,10 +16,11 @@ let topText = document.querySelector('.top-text');
 let startButton = document.querySelector('.start-button');
 let titleText = document.querySelector('.title-text');
 let battleMenu = document.querySelector('.battle-menu');
+let allUses = document.querySelectorAll('.allUses');
 let moves1Uses = document.querySelector('.move1-uses');
-let moves2Uses = document.querySelector('.move1-uses');
-let moves3Uses = document.querySelector('.move1-uses');
-let moves4Uses = document.querySelector('.move1-uses');
+let moves2Uses = document.querySelector('.move2-uses');
+let moves3Uses = document.querySelector('.move3-uses');
+let moves4Uses = document.querySelector('.move4-uses');
 let cpuMenu = document.querySelector('.cpu-move');
 let showCpuMove = document.querySelector('.cpu-move-result');
 let battleMoves = document.querySelectorAll('.moves');
@@ -352,6 +353,9 @@ let pleaseWait = () => {
     battleMoves[1].style.fontSize = '40pt'
     battleMoves[2].innerHTML = '';
     battleMoves[3].innerHTML = '';
+    for(let i = 0; i < allUses.length; i++){
+        allUses[i].style.display = 'none';
+    };
 }
 
 let restoreMoves = () => {
@@ -361,6 +365,9 @@ let restoreMoves = () => {
     battleMoves[1].style.fontSize = '20pt'
     battleMoves[2].innerHTML = currentCharacter.moves[2].name;
     battleMoves[3].innerHTML = currentCharacter.moves[3].name;
+    for(let i = 0; i < allUses.length; i++){
+        allUses[i].style.display = 'block';
+    };
 }
 
 
@@ -374,6 +381,7 @@ function chooseMove () {
             setTimeout(restoreMoves, 4000);
             console.log('first', currentCharacter.moves[0].uses);
             currentCharacter.moves[0].use();
+            moves1Uses.innerText = `${currentCharacter.moves[0].uses}`
             console.log('second', currentCharacter.moves[0].uses);
         }
         else{
@@ -390,6 +398,7 @@ function chooseMove () {
             setTimeout(restoreMoves, 4000);
             console.log('first', currentCharacter.moves[1].uses);
             currentCharacter.moves[1].use();
+            moves2Uses.innerText = `${currentCharacter.moves[1].uses}`
             console.log('second', currentCharacter.moves[1].uses);
         }
         else{
@@ -405,6 +414,7 @@ function chooseMove () {
             setTimeout(restoreMoves, 4000);
             console.log('first', currentCharacter.moves[2].uses);
             currentCharacter.moves[2].use();
+            moves3Uses.innerText = `${currentCharacter.moves[2].uses}`
             console.log('second', currentCharacter.moves[2].uses);
         }
         else{
@@ -421,6 +431,7 @@ function chooseMove () {
             setTimeout(restoreMoves, 4000);
             console.log('first', currentCharacter.moves[3].uses);
             currentCharacter.moves[3].use();
+            moves4Uses.innerText = `${currentCharacter.moves[3].uses}`
             console.log('second', currentCharacter.moves[3].uses);
         }
         else{
