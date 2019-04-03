@@ -134,9 +134,9 @@ window.onload = dropStart();
 
 let fadeIn = () => {
     for(let i = 0; i < characters.length; i++){
-        characters[i].style.animation = 'fade-in 2s ease-in-out forwards';
+        // characters[i].style.animation = 'fade-in 2s ease-in-out forwards';
+        characters[i].className = 'fader-in';
     };
-    
     topText.innerHTML = 'Select Your Character'
     topText.style.animation = 'fade-in 3s ease-in-out 1s forwards';
     startButton.style.animation = 'pull-out 5s ease-in-out 1s forwards';
@@ -324,11 +324,16 @@ let damageCalc = () => {
         titleText.innerText = 'DEFEATED!!!!';
         titleText.style.color = 'red';
         battleMenu.style.display = 'none';
+
+
+
+        cpuBar.style.display = 'none';
+
         healthBar.style.display = 'none';
         health.style.display = 'none';
         startButton.innerHTML = 'Continue?';
         startButton.display = 'block';
-        startButton.style.width = '400' + px;
+        startButton.style.width = '400px';
         startButton.style.animation = 'drop-in 4s ease-in-out forwards';
 
     };
@@ -368,6 +373,9 @@ let damageCalc = () => {
         titleText.innerText = 'VICTORY!!!!';
         titleText.style.color = 'green';
         battleMenu.style.display = 'none';
+
+
+        cpuBar.style.display = 'none';
         healthBar.style.display = 'none';
         health.style.display = 'none';
         playSong.setAttribute('src', './images/victory.mp3')
@@ -430,10 +438,8 @@ function chooseMove () {
             pleaseWait();
             currentCharacter.moves[1].playSound();
             setTimeout(restoreMoves, 4000);
-            console.log('first', currentCharacter.moves[1].uses);
             currentCharacter.moves[1].use();
             moves2Uses.innerText = `${currentCharacter.moves[1].uses}`
-            console.log('second', currentCharacter.moves[1].uses);
         }
         else{
             window.alert('No uses left!');
@@ -474,6 +480,15 @@ function chooseMove () {
             window.alert('No uses left!');
         }
     }
+};
+
+let reset = () => {
+    for(let i = 0; i < characters.length; i++){
+        characters[i].style.display = 'block';
+        characters[i].addEventListener('click', selectChar);
+    };
+    titleText.style.display = 'none';
+    startButton.style.display = 'none';
 };
 
 

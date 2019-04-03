@@ -160,6 +160,9 @@ h3{
 	font-size: 60pt;
 	opacity: 0;
 }
+.fader-in{
+	animation: 'fade-in 3s ease-in-out 5s forwards';
+}
 #char1{
 	margin: 80px;
 	margin-top: 120px;
