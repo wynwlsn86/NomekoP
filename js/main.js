@@ -4,20 +4,34 @@ let yourTurn = true;
 let currentCharacter = null;
 let cpuCharacter = null;
 let cpuMove = 0;
-let newHealth = 100;
-let damage = 0;
-let totalHealth;
+let characterMove;
 let updateHealth;
 let healthPrecent;
+let totalHealth;
+let newHealth = 100;
+let cpuHealth;
+let damage = 0;
+let playSong = document.querySelector('#playSong');
+let attackSound = document.querySelector('#attackSound');
 let characters = document.querySelectorAll('.characters');
 let topText = document.querySelector('.top-text');
 let startButton = document.querySelector('.start-button');
 let titleText = document.querySelector('.title-text');
 let battleMenu = document.querySelector('.battle-menu');
+let allUses = document.querySelectorAll('.allUses');
+let moves1Uses = document.querySelector('.move1-uses');
+let moves2Uses = document.querySelector('.move2-uses');
+let moves3Uses = document.querySelector('.move3-uses');
+let moves4Uses = document.querySelector('.move4-uses');
+let cpuMenu = document.querySelector('.cpu-move');
+let showCpuMove = document.querySelector('.cpu-move-result');
 let battleMoves = document.querySelectorAll('.moves');
 let characterName = document.querySelector('.character-name')
 let healthBar = document.querySelector('.healthBar');
 let health = document.querySelector('.health');
+let cpuBar = document.querySelector('.cpuBar');
+let cpuHealthBar = document.querySelector('.cpu-health')
+let cpuName = document.querySelector('.cpu-name');
 let char1 = document.querySelector('#char1');
 let char2 = document.querySelector('#char2');
 let char3 = document.querySelector('#char3');
@@ -42,46 +56,52 @@ class Characters {
 
 
 class Moves {
-    constructor(name, dmg, uses, animation){
+    constructor(name, dmg, uses, sound){
         this.name = name;
         this.dmg = dmg;
         this.uses = uses;
-        this.animation = animation;
+        this.sound = sound;
+    }
+    use() {
+        this.uses = this.uses - 1;
+    }
+    playSound() {
+        attackSound.setAttribute('src', `${this.sound}`)
     }
 };
 
 //Moves Class
 
-let chargeBlast = new Moves('Charge Blast', 10, 8, '#');
-let dash = new Moves('Dash', 12, 4, '#');
-let topSpin = new Moves('Charge Blast', 14, 3, '#');
-let flameBlast= new Moves('Flame Blast', 20, 1, '#');
+let chargeBlast = new Moves('Charge Blast', 15, 8, '#');
+let dash = new Moves('Dash', 18, 5, '#');
+let topSpin = new Moves('Charge Blast', 24, 3, '#');
+let flameBlast= new Moves('Flame Blast', 30, 2, '#');
 //megaMan Moves
 
-let smash = new Moves('Smash', 20, 1, '#');
-let hop = new Moves('Hop', 10, 8, '#');
-let pound = new Moves('Pound', 14, 3, '#');
-let kick = new Moves('Kick', 12, 4, '#');
+let smash = new Moves('Smash', 30, 2, '#');
+let hop = new Moves('Hop', 15, 8, '#');
+let pound = new Moves('Pound', 24, 3, '#');
+let kick = new Moves('Kick', 18, 5, '#');
 //mario Moves
-let chomp = new Moves('Chomp', 10, 8, '#');
-let kirbyKick = new Moves('Kirby Kick', 12, 4, '#');
-let explode = new Moves('Explode', 14, 3, '#');
-let hurricaneBlast = new Moves('Hurricane Blast', 20, 1, '#');
+let chomp = new Moves('Chomp', 15, 8, './images/kirbyCho.wav');
+let kirbyKick = new Moves('Kirby Kick', 18, 5, './images/kirbyKick.wav');
+let explode = new Moves('Explode', 24, 3, './images/kirbyExp.wav');
+let hurricaneBlast = new Moves('Hurricane Blast', 30, 2, './images/kirbyHur.wav');
 //kirby Moves
-let slice = new Moves('Slice', 10, 8, '#');
-let limitBreak = new Moves('Limit Break', 12, 4, '#');
-let omniSlash = new Moves('Omni Slash', 14, 3, '#');
-let knights = new Moves('Knights of the Round', 20, 1, '#');
+let slice = new Moves('Slice', 15, 8, '#');
+let limitBreak = new Moves('Limit Break', 18, 5, '#');
+let omniSlash = new Moves('Omni Slash', 24, 3, '#');
+let knights = new Moves('Knights of the Round', 30, 2, '#');
 //cloud Moves
-let slash = new Moves('Slash', 10, 8, '#');
-let dukuNut = new Moves('Duku Nut', 12, 4, '#');
-let leapingSlash = new Moves('Leaping Slash', 14, 3, '#');
-let tornadoSlash = new Moves('Tornado Slash', 20, 1, '#');
+let slash = new Moves('Slash', 15, 8, './images/link2.wav');
+let dukuNut = new Moves('Duku Nut', 18, 5, './images/link4.wav');
+let leapingSlash = new Moves('Leaping Slash', 24, 3, './images/link3.wav');
+let tornadoSlash = new Moves('Tornado Slash', 30, 2, './images/link.wav');
 //link Moves
-let sonicPoke = new Moves('Sonic Poke', 10, 8, '#');
-let sonicKick = new Moves('Sonic Kick', 12, 4, '#');
-let sonicBlade = new Moves('Sonic Blade', 14, 3, '#');
-let sonicBoom = new Moves('Sonic Bloom', 20, 1, '#');
+let sonicPoke = new Moves('Sonic Poke', 15, 8, '#');
+let sonicKick = new Moves('Sonic Kick', 18, 5, '#');
+let sonicBlade = new Moves('Sonic Blade', 24, 3, '#');
+let sonicBoom = new Moves('Sonic Bloom', 30, 2, '#');
 //animations not set #############################################
 
 //Moves
@@ -169,8 +189,11 @@ let battleLift = () => {
     battleMoves[2].innerHTML = currentCharacter.moves[2].name;
     battleMoves[3].innerHTML = currentCharacter.moves[3].name;
     characterName.innerHTML = currentCharacter.name;
+    cpuName.innerHTML = cpuCharacter.name;
     battleMenu.style.display = 'block';
     healthBar.style.display = 'block';
+    cpuBar.style.display = 'block';
+    playSong.setAttribute('src', './images/ff7.mp3')
 };
 
 
@@ -239,73 +262,217 @@ for(let i = 0; i < characters.length; i++){
 };
 //This whole section selects a character for player and cpu and makes others dissappear. Will also put the 2 characters in the right postions for battle
 
-let chooseCpuMove = () => {
+function chooseCpuMove () {
+    console.log(this);
     let randomNum = Math.floor(Math.random() * 4);
     cpuMove = cpuCharacter.moves[randomNum];
+    showCpuMove.innerText = cpuMove.name;
+    let addMenu = () => {
+        cpuMenu.style.display = 'block';
+    };
+    setTimeout(addMenu, 1000);
+    let removeMenu =() => {
+        cpuMenu.style.display = 'none';
+    };
+    setTimeout(removeMenu, 3000);
 };
 
 
 let damageCalc = () => {
-    // console.log('current', currentCharacter.hp);
-    updateHealth = currentCharacter.hp;
-    console.log(updateHealth, 'prior');
-    
+    cpuCharacter.takeDmg(characterMove.dmg);
+    cpuHealth = cpuCharacter.hp;
+    cpuHealthPrecent = (cpuCharacter.hp / 200) * 100;
+    cpuHealthBar.style.width = cpuHealthPrecent + '%';
     currentCharacter.takeDmg(cpuMove.dmg);
-    console.log(currentCharacter.hp, 'after dmg');
     healthPrecent =  (currentCharacter.hp / 200) * 100;
-    console.log(healthPrecent, '%');
-    // console.log(cpuMove);
-    // console.log(currentCharacter.hp)
-    // currentCharacter.hp = currentCharacter.hp - cpuMove.dmg;
-    // console.log(currentCharacter.hp);
-    // currentCharacter.takeDmg(currentCharacter);
-    // damage = cpuMove.dmg / 2;
-    // console.log(damage);
-    // updateHealth = (updateHealth - damage);
-    // console.log(updateHealth - damage);
-    // // console.log(newHealth);
-    // // console.log(updateHealth);
-    // // newHealth = updateHealth;
-    // console.log(updateHealth / currentCharacter.hp);
-    
     health.style.width = healthPrecent + '%';
-    if(healthPrecent <= 60){
+    console.log(cpuHealth, 'cpu hp');
+    if(healthPrecent <= 60 && healthPrecent > 30){
+        console.log('yellow');
         health.style.backgroundColor = 'yellow';
-    };
-    if(healthPrecent <= 30){
+    }
+    else if(healthPrecent <= 30 && healthPrecent > 10){
+        console.log('red');
         health.style.backgroundColor = 'red';
-    };
-    if(healthPrecent <= 10){
+    }
+    else if(healthPrecent <= 10 && healthPrecent > 0){
+        console.log('deading');
         health.style.backgroundColor = 'rgb(88, 1, 1)';
     }
+    else if(healthPrecent <= 0){
+        console.log('dead');
+        if(currentCharacter.name === 'Mario'){
+            char1.style.display = 'none';
+        }
+        if(currentCharacter.name === 'Kirby'){
+            char2.style.display = 'none';
+        }
+        if(currentCharacter.name === 'Cloud'){
+            char3.style.display = 'none';
+        }
+        if(currentCharacter.name === 'Link'){
+            char4.style.display = 'none';
+        }
+        if(currentCharacter.name === 'Mega-Man'){
+            char5.style.display = 'none';
+        }
+        if(currentCharacter.name === 'Guile'){
+            char6.style.display = 'none';
+        }
+        playSong.setAttribute('src', './images/defeat.mp3')
+        titleText.style.display = 'block';
+        titleText.innerText = 'DEFEATED!!!!';
+        titleText.style.color = 'red';
+        battleMenu.style.display = 'none';
+        healthBar.style.display = 'none';
+        health.style.display = 'none';
+        startButton.innerHTML = 'Continue?';
+        startButton.display = 'block';
+        startButton.style.width = '400' + px;
+        startButton.style.animation = 'drop-in 4s ease-in-out forwards';
+
+    };
+    if(cpuHealthPrecent <= 60 && cpuHealthPrecent > 30){
+        console.log('yellow');
+        cpuHealthBar.style.backgroundColor = 'yellow';
+    }
+    else if(cpuHealthPrecent <= 30 && cpuHealthPrecent > 10){
+        console.log('red');
+        cpuHealthBar.style.backgroundColor = 'red';
+    }
+    else if(cpuHealthPrecent <= 10 && cpuHealthPrecent > 0){
+        console.log('deading');
+        cpuHealthBar.style.backgroundColor = 'rgb(88, 1, 1)';
+    }
+    else if(cpuHealthPrecent <= 0){
+        console.log('dead');
+        if(cpuCharacter.name === 'Mario'){
+            char1.style.display = 'none';
+        }
+        if(cpuCharacter.name === 'Kirby'){
+            char2.style.display = 'none';
+        }
+        if(cpuCharacter.name === 'Cloud'){
+            char3.style.display = 'none';
+        }
+        if(cpuCharacter.name === 'Link'){
+            char4.style.display = 'none';
+        }
+        if(cpuCharacter.name === 'Mega-Man'){
+            char5.style.display = 'none';
+        }
+        if(cpuCharacter.name === 'Guile'){
+            char6.style.display = 'none';
+        }
+        titleText.style.display = 'block';
+        titleText.innerText = 'VICTORY!!!!';
+        titleText.style.color = 'green';
+        battleMenu.style.display = 'none';
+        healthBar.style.display = 'none';
+        health.style.display = 'none';
+        playSong.setAttribute('src', './images/victory.mp3')
+        startButton.innerHTML = 'Continue?';
+        startButton.display = 'block';
+        startButton.style.width = '400' + px;
+        startButton.style.animation = 'drop-in 4s ease-in-out forwards';
+    };
 };
 
+let pleaseWait = () => {
+    battleMoves[0].innerText = '';
+    battleMoves[1].innerHTML = 'Please Wait...';
+    battleMoves[1].style.textAlign = 'center';
+    battleMoves[1].style.fontSize = '40pt'
+    battleMoves[2].innerHTML = '';
+    battleMoves[3].innerHTML = '';
+    for(let i = 0; i < allUses.length; i++){
+        allUses[i].style.display = 'none';
+    };
+}
+
+let restoreMoves = () => {
+    battleMoves[0].innerText = currentCharacter.moves[0].name;
+    battleMoves[1].innerHTML = currentCharacter.moves[1].name;
+    battleMoves[1].style.textAlign = 'left';
+    battleMoves[1].style.fontSize = '20pt'
+    battleMoves[2].innerHTML = currentCharacter.moves[2].name;
+    battleMoves[3].innerHTML = currentCharacter.moves[3].name;
+    for(let i = 0; i < allUses.length; i++){
+        allUses[i].style.display = 'block';
+    };
+}
 
 
 function chooseMove () {
     if(this.id === 'move1'){
-        chooseCpuMove();
-        damageCalc();
-        // console.log('prior health' + currentCharacter.hp);
-        
-        // console.log(cpuMove);
-        // console.log(currentCharacter.hp);
+        if(currentCharacter.moves[0].uses > 0){
+            characterMove = currentCharacter.moves[0];
+            chooseCpuMove();
+            damageCalc();
+            pleaseWait();
+            currentCharacter.moves[0].playSound();
+            setTimeout(restoreMoves, 4000);
+            console.log('first', currentCharacter.moves[0].uses);
+            currentCharacter.moves[0].use();
+            moves1Uses.innerText = `${currentCharacter.moves[0].uses}`
+            console.log('second', currentCharacter.moves[0].uses);
+        }
+        else{
+            window.alert('No uses left!');
+        }
         
     }
     if(this.id === 'move2'){
-        chooseCpuMove();
-        damageCalc();
-        // chooseCpuMove();
+        if(currentCharacter.moves[1].uses > 0){
+            characterMove = currentCharacter.moves[0];
+            chooseCpuMove();
+            damageCalc();
+            pleaseWait();
+            currentCharacter.moves[1].playSound();
+            setTimeout(restoreMoves, 4000);
+            console.log('first', currentCharacter.moves[1].uses);
+            currentCharacter.moves[1].use();
+            moves2Uses.innerText = `${currentCharacter.moves[1].uses}`
+            console.log('second', currentCharacter.moves[1].uses);
+        }
+        else{
+            window.alert('No uses left!');
+        }
     }
     if(this.id === 'move3'){
-        chooseCpuMove();
-        damageCalc();
-        // chooseCpuMove();
+        if(currentCharacter.moves[2].uses > 0){
+            characterMove = currentCharacter.moves[0];
+            chooseCpuMove();
+            damageCalc();
+            pleaseWait();
+            currentCharacter.moves[2].playSound();
+            setTimeout(restoreMoves, 4000);
+            console.log('first', currentCharacter.moves[2].uses);
+            currentCharacter.moves[2].use();
+            moves3Uses.innerText = `${currentCharacter.moves[2].uses}`
+            console.log('second', currentCharacter.moves[2].uses);
+        }
+        else{
+            window.alert('No uses left!');
+        }
     }
     if(this.id === 'move4'){
-        chooseCpuMove();
-        damageCalc();
-        // chooseCpuMove();
+        console.log('precheck', currentCharacter.moves[2].uses);
+        if(currentCharacter.moves[3].uses > 0){
+            characterMove = currentCharacter.moves[0];
+            chooseCpuMove();
+            damageCalc();
+            pleaseWait();
+            currentCharacter.moves[3].playSound();
+            setTimeout(restoreMoves, 4000);
+            console.log('first', currentCharacter.moves[3].uses);
+            currentCharacter.moves[3].use();
+            moves4Uses.innerText = `${currentCharacter.moves[3].uses}`
+            console.log('second', currentCharacter.moves[3].uses);
+        }
+        else{
+            window.alert('No uses left!');
+        }
     }
 };
 
@@ -314,44 +481,3 @@ for(i = 0; i < battleMoves.length; i++){
     battleMoves[i].addEventListener('click', chooseMove);
 };
 
-
-
-
-
-
-
-
-
-
-
-//functions for moves. when user selects a move set 'turn = false' until animation completes to prevent further inputs then 'turn = true'
-
-
-
-
-
-
-
-
-
-//set keydown eventlisteners
-
-
-
-//##########Soo to do damage..... megaMan.takeDmg(character.move#.dmg);
-//##########This will change megaMan's health
-
-
-
-
-//check for winner
-
-
-
-
-
-
-
-
-
-//victory screen

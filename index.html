@@ -7,6 +7,9 @@
 	
 </head>
 <body>
+		<audio src="" volume="0.1" id="playSong"  autoplay></audio>
+		<audio src="" id="attackSound" volume= '1' autoplay></audio>
+		<audio src="" id="cpuSound" autoplay></audio>
 	<!-- <button class='test' onclick='fadeIn()'>test</button> -->
 	<button class='start-button'>Start</button>
 		<h1 class='title-text'></h1>
@@ -22,24 +25,32 @@
 			
 			<div class="healthBar">
 				<div class="health"></div>
-				<p class="character-name">Name</p></div>
+				<p class="character-name">Name</p
+			></div>
+			<div class="cpuBar">
+				<div class="cpu-health"></div>
+				<p class="cpu-name">Name</p>
+			</div>
 			<div class="battle-menu">
 				<div class='border'>
 					<h3 class="moves" id='move1'></h1>
-					<p>Stuff</p>
+					<p class='allUses'><span class='move1-uses'>8</span>/8</p>
 				</div>
 				<div class='border'>
 					<h3 class="moves" id='move2'></h1>
-					<p>Stuff</p>
+						<p class='allUses'><span class='move2-uses'>5</span>/5</p>
 				</div>
 				<div class='border'>
 					<h3 class="moves" id='move3'></h1>
-					<p>Stuff</p>
+						<p class='allUses'><span class='move3-uses'>3</span>/3</p>
 				</div>
 				<div class='border'>
 					<h3 class="moves" id='move4'></h1>
-					<p>Stuff</p>
+						<p class='allUses'><span class='move4-uses'>2</span>/2</p>
 				</div>
+			</div>
+			<div class='cpu-move'>
+				<h3 class='cpu-move-result'>Move</h3>
 			</div>
 	</div>
 	
