@@ -11,6 +11,8 @@ let totalHealth;
 let newHealth = 100;
 let cpuHealth;
 let damage = 0;
+let playSong = document.querySelector('#playSong');
+let attackSound = document.querySelector('#attackSound');
 let characters = document.querySelectorAll('.characters');
 let topText = document.querySelector('.top-text');
 let startButton = document.querySelector('.start-button');
@@ -54,14 +56,17 @@ class Characters {
 
 
 class Moves {
-    constructor(name, dmg, uses, animation){
+    constructor(name, dmg, uses, sound){
         this.name = name;
         this.dmg = dmg;
         this.uses = uses;
-        this.animation = animation;
+        this.sound = sound;
     }
     use() {
         this.uses = this.uses - 1;
+    }
+    playSound() {
+        attackSound.setAttribute('src', `${this.sound}`)
     }
 };
 
@@ -78,20 +83,20 @@ let hop = new Moves('Hop', 15, 8, '#');
 let pound = new Moves('Pound', 24, 3, '#');
 let kick = new Moves('Kick', 18, 5, '#');
 //mario Moves
-let chomp = new Moves('Chomp', 15, 8, '#');
-let kirbyKick = new Moves('Kirby Kick', 18, 5, '#');
-let explode = new Moves('Explode', 24, 3, '#');
-let hurricaneBlast = new Moves('Hurricane Blast', 30, 2, '#');
+let chomp = new Moves('Chomp', 15, 8, './images/kirbyCho.wav');
+let kirbyKick = new Moves('Kirby Kick', 18, 5, './images/kirbyKick.wav');
+let explode = new Moves('Explode', 24, 3, './images/kirbyExp.wav');
+let hurricaneBlast = new Moves('Hurricane Blast', 30, 2, './images/kirbyHur.wav');
 //kirby Moves
 let slice = new Moves('Slice', 15, 8, '#');
 let limitBreak = new Moves('Limit Break', 18, 5, '#');
 let omniSlash = new Moves('Omni Slash', 24, 3, '#');
 let knights = new Moves('Knights of the Round', 30, 2, '#');
 //cloud Moves
-let slash = new Moves('Slash', 15, 8, '#');
-let dukuNut = new Moves('Duku Nut', 18, 5, '#');
-let leapingSlash = new Moves('Leaping Slash', 24, 3, '#');
-let tornadoSlash = new Moves('Tornado Slash', 30, 2, '#');
+let slash = new Moves('Slash', 15, 8, './images/link2.wav');
+let dukuNut = new Moves('Duku Nut', 18, 5, './images/link4.wav');
+let leapingSlash = new Moves('Leaping Slash', 24, 3, './images/link3.wav');
+let tornadoSlash = new Moves('Tornado Slash', 30, 2, './images/link.wav');
 //link Moves
 let sonicPoke = new Moves('Sonic Poke', 15, 8, '#');
 let sonicKick = new Moves('Sonic Kick', 18, 5, '#');
@@ -188,6 +193,7 @@ let battleLift = () => {
     battleMenu.style.display = 'block';
     healthBar.style.display = 'block';
     cpuBar.style.display = 'block';
+    playSong.setAttribute('src', './images/ff7.mp3')
 };
 
 
@@ -313,12 +319,17 @@ let damageCalc = () => {
         if(currentCharacter.name === 'Guile'){
             char6.style.display = 'none';
         }
+        playSong.setAttribute('src', './images/defeat.mp3')
         titleText.style.display = 'block';
         titleText.innerText = 'DEFEATED!!!!';
         titleText.style.color = 'red';
         battleMenu.style.display = 'none';
         healthBar.style.display = 'none';
         health.style.display = 'none';
+        startButton.innerHTML = 'Continue?';
+        startButton.display = 'block';
+        startButton.style.width = '400' + px;
+        startButton.style.animation = 'drop-in 4s ease-in-out forwards';
 
     };
     if(cpuHealthPrecent <= 60 && cpuHealthPrecent > 30){
@@ -359,38 +370,12 @@ let damageCalc = () => {
         battleMenu.style.display = 'none';
         healthBar.style.display = 'none';
         health.style.display = 'none';
-
+        playSong.setAttribute('src', './images/victory.mp3')
+        startButton.innerHTML = 'Continue?';
+        startButton.display = 'block';
+        startButton.style.width = '400' + px;
+        startButton.style.animation = 'drop-in 4s ease-in-out forwards';
     };
-
-
-    // if (cpuHealth <= 0){
-    //     if(cpuCharacter.name === 'Mario'){
-    //         char1.style.display = 'none';
-    //     }
-    //     if(cpuCharacter.name === 'Kirby'){
-    //         char2.style.display = 'none';
-    //     }
-    //     if(cpuCharacter.name === 'Cloud'){
-    //         char3.style.display = 'none';
-    //     }
-    //     if(cpuCharacter.name === 'Link'){
-    //         char4.style.display = 'none';
-    //     }
-    //     if(cpuCharacter.name === 'Mega-Man'){
-    //         char5.style.display = 'none';
-    //     }
-    //     if(cpuCharacter.name === 'Guile'){
-    //         char6.style.display = 'none';
-    //     }
-    //     battleMenu.style.display = 'none';
-    //     titleText.style.display = 'block';
-    //     titleText.innerHTML = 'VICTORY!!!';
-    //     titleText.style.color = 'green';
-    //     setTimeout(function () {
-    //         titleText.style.display = 'none';
-    //         battleMenu.style.display = 'block';
-    //     }, 9000);
-    // }; 
 };
 
 let pleaseWait = () => {
@@ -425,6 +410,7 @@ function chooseMove () {
             chooseCpuMove();
             damageCalc();
             pleaseWait();
+            currentCharacter.moves[0].playSound();
             setTimeout(restoreMoves, 4000);
             console.log('first', currentCharacter.moves[0].uses);
             currentCharacter.moves[0].use();
@@ -442,6 +428,7 @@ function chooseMove () {
             chooseCpuMove();
             damageCalc();
             pleaseWait();
+            currentCharacter.moves[1].playSound();
             setTimeout(restoreMoves, 4000);
             console.log('first', currentCharacter.moves[1].uses);
             currentCharacter.moves[1].use();
@@ -458,6 +445,7 @@ function chooseMove () {
             chooseCpuMove();
             damageCalc();
             pleaseWait();
+            currentCharacter.moves[2].playSound();
             setTimeout(restoreMoves, 4000);
             console.log('first', currentCharacter.moves[2].uses);
             currentCharacter.moves[2].use();
@@ -475,6 +463,7 @@ function chooseMove () {
             chooseCpuMove();
             damageCalc();
             pleaseWait();
+            currentCharacter.moves[3].playSound();
             setTimeout(restoreMoves, 4000);
             console.log('first', currentCharacter.moves[3].uses);
             currentCharacter.moves[3].use();
@@ -492,27 +481,3 @@ for(i = 0; i < battleMoves.length; i++){
     battleMoves[i].addEventListener('click', chooseMove);
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//check for winner
-
-
-
-
-
-
-
-
-
-//victory screen
