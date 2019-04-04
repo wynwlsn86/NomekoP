@@ -23,11 +23,27 @@ h3{
 	}
 }
 @keyframes fade-out{
+	0%{
+		opacity: 1;
+	}
 	50%{
 		opacity: .5;
 	}
 	100%{
 		opacity: 0;
+		display: none;
+		margin-top: -125px;
+	}
+}
+@keyframes basicAttack {
+	0%{
+		transform: translateX(0px);
+	}
+	50%{
+		transform: translateX(100px);
+	}
+	100%{
+		transform: translateX(0px);
 	}
 }
 @keyframes drop-in{
@@ -35,8 +51,16 @@ h3{
 		transform: translateY(400%);
 	}
 }
+@keyframes spinAttack{
+	100%{
+		transform: rotate(360deg)
+	}
+}
 @keyframes pull-out{
 	transform: translateY(-400%);
+}
+.absolute{
+	position: absolute;
 }
 .allUses{
 	font-weight: bold;
@@ -45,6 +69,12 @@ h3{
 	height: 100vh;
 	width: 100vw;
 	display: flex;
+}
+.basic-attack{
+	animation: basicAttack 2s forwards;
+}
+.spin-attack{
+	animation: spinAttack 2s forwards;
 }
 .button-box{
 	transition: 4s ease 1s;
@@ -117,6 +147,7 @@ h3{
 .border:hover{
 	border: solid black 2px;
 }
+
 .health{
 	width: 100%;
 	height: 100%;
@@ -140,6 +171,12 @@ h3{
 .moves{
 	font-weight: bold;
 }
+.none{
+	display: none;
+}
+.puller-out{
+	pull-out 5s ease-in-out 1s forwards;
+}
 .start-button{
 	height: 100px;
 	width: 300px;
@@ -153,12 +190,19 @@ h3{
 .title-text{
 	color: white;
 	font-size: 60pt;
+	z-index: 5;
 	opacity: 0;
 }
 .top-text{
 	color: white;
 	font-size: 60pt;
 	opacity: 0;
+}
+.fader-in{
+	animation: fade-in 2s ease-in-out 2s forwards;
+}
+.fader-out{
+	animation: fade-out 2s ease-in-out 0s forwards;
 }
 #char1{
 	margin: 80px;
