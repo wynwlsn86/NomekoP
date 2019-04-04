@@ -108,7 +108,7 @@ let sonicBoom = new Moves('Sonic Bloom', 30, 2, '#');
 
 let megaMan = new Characters('Mega-Man', 200, [chargeBlast, dash, topSpin, flameBlast]);
 
-let mario = new Characters('Mario', 200, [smash, hop, pound, kick]);
+let mario = new Characters('Mario', 200, [hop, kick, pound, smash]);
 
 let kirby = new Characters('Kirby', 200, [chomp, kirbyKick, explode, hurricaneBlast]);
 
@@ -120,6 +120,13 @@ let guile = new Characters('Guile', 200, [sonicPoke, sonicKick, sonicBlade, soni
 
 
 //Characters
+//All Characters and Moves defined########################################
+/////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 let dropStart = () => {
     startButton.style.animation = 'drop-in 4s ease-in-out forwards';
@@ -129,6 +136,8 @@ let dropStart = () => {
 
 window.onload = dropStart();
 //Start button to drop in, and title to fade in on a delax
+//First state, button drops in with tittle###############################
+///////////////////////////////////////////////////////////////////////////
 
 
 
@@ -144,9 +153,12 @@ let fadeIn = () => {
     //can i reverse fade the start button out using fade in, in reverse?
     
 };
-
 startButton.addEventListener('click', fadeIn);
+//Characters fade-in, in the line-up for selection############################
+//////////////////////////////////////////////////////////////////////////////
 //Fade in Function to run after Start is fired onClick
+
+
 
 let disappear = (num) => {
     player1.push(charArray.splice(num,1));
@@ -155,7 +167,8 @@ let disappear = (num) => {
         }
     topText.style.display = 'none';
 };
-
+//Sets not chosed characters to display none##############################
+/////////////////////////////////////////////////////////
 let cpuChar = () => {
     let cpuRand = charArray[Math.floor(Math.random() * 5)];
     // cpuCharacter = cpuRand.dataset.name;
@@ -198,6 +211,7 @@ let battleLift = () => {
 
 
 function selectChar () {
+    titleText.innerHTML = ' ';
     if(this === char1){
         currentCharacter = mario;
         disappear(0);
@@ -381,7 +395,7 @@ let damageCalc = () => {
         playSong.setAttribute('src', './images/victory.mp3')
         startButton.innerHTML = 'Continue?';
         startButton.display = 'block';
-        startButton.style.width = '400' + px;
+        startButton.style.width = '400px';
         startButton.style.animation = 'drop-in 4s ease-in-out forwards';
     };
 };
@@ -486,9 +500,29 @@ let reset = () => {
     for(let i = 0; i < characters.length; i++){
         characters[i].style.display = 'block';
         characters[i].addEventListener('click', selectChar);
+        characters[i].style.zIndex = '2';
+        characters[i].style.position = 'static';
+        characters[i].style.margin = '50px';
+        fadeIn();
     };
-    titleText.style.display = 'none';
+    let temp = player1.splice(0.1);
+    console.log(temp, 'temp');
+    charArray.push(temp[0][0]);
+    console.log(charArray, 'charArray');
+    // charArray.push(player1[0].splice(0,1));
+    console.log(player1);
+    titleText.innerText= 'Select Your Character';
+    titleText.style.marginTop = '50px';
+    titleText.style.display = 'block';
     startButton.style.display = 'none';
+    health.style.width = '100%';
+    healthBar.style.backgroundColor = 'green';
+    cpuHealthBar.style.width = '100%';
+    cpuHealthBar.style.backgroundColor = 'green';
+    moves1Uses.innerText = '8';
+    moves2Uses.innerText = '5';
+    moves3Uses.innerText = '3';
+    moves4Uses.innerText = '2';
 };
 
 
