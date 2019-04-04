@@ -116,6 +116,9 @@ h3{
 	position: absolute;
 	z-index: 3;
 	display: none;
+	/* display: grid; */
+	grid-template-rows: auto auto;
+	grid-template-columns: auto auto;
 }
 .characters{
 	height: 75px;
@@ -165,8 +168,12 @@ h3{
 .cpu-move-result{
 	margin-top: 20%;
 }
+.dmg-amount{
+	font-weight: bold;
+}
 .border{
 	cursor: pointer;
+	display: grid;
 }
 .border:hover{
 	border: solid black 2px;
