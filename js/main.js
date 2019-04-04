@@ -244,6 +244,7 @@ let battleLift = () => {
     characterName.innerHTML = currentCharacter.name;
     cpuName.innerHTML = cpuCharacter.name;
     battleMenu.style.display = 'block';
+    health.style.display = 'block';
     healthBar.style.display = 'block';
     cpuBar.style.display = 'block';
     playSong.setAttribute('src', './images/ff7.mp3')
@@ -348,18 +349,6 @@ function chooseCpuMove () {
 // };
 
 let attack = () => {
-    // let forward = () => {
-    //     player1[0][0].style.left = '30px';
-    // }
-    // let forw = setInterval(forward, 5);
-    // setTimeout(clear(forw), 1000);
-    // setTimeout(function(){
-    //     let backward = () => {
-    //         player1[0][0].style.left = '-30px';
-    //     }
-    //     let back = setInterval(backward, 50);
-    //     setTimeout(clear(back), 1000);
-    // }, 1000)
     let stopAttack = () => {
         player1[0][0].classList.toggle('basic-attack')
     }
@@ -583,9 +572,11 @@ function chooseMove () {
 };
 
 let reset = () => {
+    player1[0][0].style.opacity = '0';
     temp = player1.splice(0,1);
     console.log(temp);
     console.log(temp, 'temp');
+
     charArray.splice(temp[0][0].dataset.index, 0, temp[0][0]);
     console.log(charArray);
     for(let i = 0; i < characters.length; i++){
@@ -612,7 +603,7 @@ let reset = () => {
     titleText.style.display = 'block';
     startButton.style.display = 'none';
     health.style.width = '100%';
-    healthBar.style.backgroundColor = 'green';
+    health.style.backgroundColor = 'green';
     cpuHealthBar.style.width = '100%';
     cpuHealthBar.style.backgroundColor = 'green';
     characterName.style.marginTop = '15px';
