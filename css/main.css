@@ -40,10 +40,28 @@ h3{
 		transform: translateX(0px);
 	}
 	50%{
-		transform: translateX(100px);
+		transform: translateX(500px);
 	}
 	100%{
 		transform: translateX(0px);
+	}
+}
+@keyframes growAttack{
+	50%{
+		transform: scaleX(9);
+		/* transform: scaleY(9); */
+	}
+	100%{
+		transform: scaleX(1);
+		/* transform: scaleY(1); */
+	}
+}
+@keyframes matrixAttack{
+	50%{
+		transform: matrix(1, -0.3, 0, 1, 0, 0)
+	}
+	100%{
+		transform: matrix(0, 0, 0, 0, 0, 0);
 	}
 }
 @keyframes drop-in{
@@ -53,7 +71,7 @@ h3{
 }
 @keyframes spinAttack{
 	100%{
-		transform: rotate(360deg)
+		transform: rotate(1080deg)
 	}
 }
 @keyframes pull-out{
@@ -75,6 +93,12 @@ h3{
 }
 .spin-attack{
 	animation: spinAttack 2s forwards;
+}
+.matrix-attack{
+	animation: matrixAttack 2s forwards;
+}
+.grow-attack{
+	animation: growAttack 2s forwards;
 }
 .button-box{
 	transition: 4s ease 1s;

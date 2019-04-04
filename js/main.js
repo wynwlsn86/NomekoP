@@ -52,6 +52,42 @@ class Characters {
         this.dmg = dmg;
         this.hp = this.hp - this.dmg;
     }
+    basicAttack = () => {
+        let stopAttack = () => {
+            player1[0][0].classList.toggle('basic-attack')
+        }
+        player1[0][0].style.opacity = '1';
+        player1[0][0].classList.remove('fader-in');
+        player1[0][0].classList.toggle('basic-attack');
+        setTimeout(stopAttack, 2000);
+    }
+    spinAttack = () => {
+        let stopAttack = () => {
+            player1[0][0].classList.toggle('spin-attack')
+        }
+        player1[0][0].style.opacity = '1';
+        player1[0][0].classList.remove('fader-in');
+        player1[0][0].classList.toggle('spin-attack');
+        setTimeout(stopAttack, 2000);
+    }
+    growAttack = () => {
+        let stopAttack = () => {
+            player1[0][0].classList.toggle('grow-attack')
+        }
+        player1[0][0].style.opacity = '1';
+        player1[0][0].classList.remove('fader-in');
+        player1[0][0].classList.toggle('grow-attack');
+        setTimeout(stopAttack, 2000);
+    }
+    matrixAttack = () => {
+        let stopAttack = () => {
+            player1[0][0].classList.toggle('matrix-attack')
+        }
+        player1[0][0].style.opacity = '1';
+        player1[0][0].classList.remove('fader-in');
+        player1[0][0].classList.toggle('matrix-attack');
+        setTimeout(stopAttack, 2000);
+    }
 };
 
 //Character Class
@@ -348,14 +384,13 @@ function chooseCpuMove () {
 //     clearInterval(name);
 // };
 
-let attack = () => {
+let basicAttack = () => {
     let stopAttack = () => {
         player1[0][0].classList.toggle('basic-attack')
     }
     player1[0][0].style.opacity = '1';
     player1[0][0].classList.remove('fader-in');
-    player1[0][0].classList.toggle('spin-attack');
-    console.log(player1[0][0].classList);
+    player1[0][0].classList.toggle('basic-attack');
     setTimeout(stopAttack, 2000);
 };
 
@@ -367,7 +402,7 @@ let damageCalc = () => {
     currentCharacter.takeDmg(cpuMove.dmg);
     healthPrecent =  (currentCharacter.hp / 200) * 100;
     health.style.width = healthPrecent + '%';
-    attack();
+//ATTACK ATTACK ATTACK
     console.log(cpuHealth, 'cpu hp');
     console.log(currentCharacter.hp);
     if(healthPrecent <= 60 && healthPrecent > 30){
@@ -506,6 +541,7 @@ function chooseMove () {
     if(this.id === 'move1'){
         if(currentCharacter.moves[0].uses > 0){
             characterMove = currentCharacter.moves[0];
+            currentCharacter.basicAttack();
             chooseCpuMove();
             damageCalc();
             pleaseWait();
@@ -522,6 +558,7 @@ function chooseMove () {
     if(this.id === 'move2'){
         if(currentCharacter.moves[1].uses > 0){
             characterMove = currentCharacter.moves[0];
+            currentCharacter.spinAttack();
             chooseCpuMove();
             damageCalc();
             pleaseWait();
@@ -537,6 +574,7 @@ function chooseMove () {
     if(this.id === 'move3'){
         if(currentCharacter.moves[2].uses > 0){
             characterMove = currentCharacter.moves[0];
+            currentCharacter.growAttack();
             chooseCpuMove();
             damageCalc();
             pleaseWait();
@@ -555,6 +593,7 @@ function chooseMove () {
         console.log('precheck', currentCharacter.moves[2].uses);
         if(currentCharacter.moves[3].uses > 0){
             characterMove = currentCharacter.moves[0];
+            currentCharacter.matrixAttack();
             chooseCpuMove();
             damageCalc();
             pleaseWait();
