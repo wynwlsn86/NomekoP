@@ -131,7 +131,8 @@ let guile = new Characters('Guile', 200, [sonicPoke, sonicKick, sonicBlade, soni
 let dropStart = () => {
     startButton.style.animation = 'drop-in 4s ease-in-out forwards';
     titleText.innerHTML = 'NOMEKOP';
-    titleText.style.animation = 'fade-in 4s ease-in-out 3s forwards';
+    // titleText.style.animation = 'fade-in 4s ease-in-out 3s forwards';
+    titleText.classList.toggle('fader-in');
 }
 
 window.onload = dropStart();
@@ -144,10 +145,10 @@ window.onload = dropStart();
 let fadeIn = () => {
     for(let i = 0; i < characters.length; i++){
         // characters[i].style.animation = 'fade-in 2s ease-in-out forwards';
-        characters[i].className = 'fader-in';
+        characters[i].classList.toggle('fader-in');
     };
     topText.innerHTML = 'Select Your Character'
-    topText.style.animation = 'fade-in 3s ease-in-out 1s forwards';
+    topText.classList.toggle('fader-in');
     startButton.style.animation = 'pull-out 5s ease-in-out 1s forwards';
     titleText.style.display = 'none';
     //can i reverse fade the start button out using fade in, in reverse?
@@ -163,9 +164,11 @@ startButton.addEventListener('click', fadeIn);
 let disappear = (num) => {
     player1.push(charArray.splice(num,1));
     for(let i = 0; i < charArray.length; i++){
-            charArray[i].style.display = 'none';
+            // charArray[i].style.display = 'none';
+            charArray[i].classList.toggle('fader-out');
         }
-    topText.style.display = 'none';
+    // topText.style.display = 'none';
+    topText.classList.toggle('fader-out');
 };
 //Sets not chosed characters to display none##############################
 /////////////////////////////////////////////////////////
@@ -301,6 +304,7 @@ let damageCalc = () => {
     healthPrecent =  (currentCharacter.hp / 200) * 100;
     health.style.width = healthPrecent + '%';
     console.log(cpuHealth, 'cpu hp');
+    console.log(currentCharacter.hp)
     if(healthPrecent <= 60 && healthPrecent > 30){
         console.log('yellow');
         health.style.backgroundColor = 'yellow';
@@ -316,39 +320,41 @@ let damageCalc = () => {
     else if(healthPrecent <= 0){
         console.log('dead');
         if(currentCharacter.name === 'Mario'){
-            char1.style.display = 'none';
+            char1.classList.toggle('fader-out');
         }
         if(currentCharacter.name === 'Kirby'){
-            char2.style.display = 'none';
+            char2.classList.toggle('fader-out');
         }
         if(currentCharacter.name === 'Cloud'){
-            char3.style.display = 'none';
+            char3.classList.toggle('fader-out');
         }
         if(currentCharacter.name === 'Link'){
-            char4.style.display = 'none';
+            char4.classList.toggle('fader-out');
         }
         if(currentCharacter.name === 'Mega-Man'){
-            char5.style.display = 'none';
+            char5.classList.toggle('fader-out');
         }
         if(currentCharacter.name === 'Guile'){
-            char6.style.display = 'none';
+            char6.classList.toggle('fader-out');
         }
         playSong.setAttribute('src', './images/defeat.mp3')
         titleText.style.display = 'block';
         titleText.innerText = 'DEFEATED!!!!';
         titleText.style.color = 'red';
         battleMenu.style.display = 'none';
-
-
-
         cpuBar.style.display = 'none';
-
         healthBar.style.display = 'none';
         health.style.display = 'none';
         startButton.innerHTML = 'Continue?';
         startButton.display = 'block';
         startButton.style.width = '400px';
         startButton.style.animation = 'drop-in 4s ease-in-out forwards';
+        currentCharacter.moves[0].uses = '8';
+        currentCharacter.moves[1].uses = '5';
+        currentCharacter.moves[2].uses = '3';
+        currentCharacter.moves[3].uses = '2';
+        currentCharacter.hp = '200';
+        cpuCharacter.hp = '200';
 
     };
     if(cpuHealthPrecent <= 60 && cpuHealthPrecent > 30){
@@ -387,8 +393,6 @@ let damageCalc = () => {
         titleText.innerText = 'VICTORY!!!!';
         titleText.style.color = 'green';
         battleMenu.style.display = 'none';
-
-
         cpuBar.style.display = 'none';
         healthBar.style.display = 'none';
         health.style.display = 'none';
@@ -397,6 +401,10 @@ let damageCalc = () => {
         startButton.display = 'block';
         startButton.style.width = '400px';
         startButton.style.animation = 'drop-in 4s ease-in-out forwards';
+        currentCharacter.moves[0].uses = '8';
+        currentCharacter.moves[1].uses = '5';
+        currentCharacter.moves[2].uses = '3';
+        currentCharacter.moves[3].uses = '2';
     };
 };
 
@@ -434,10 +442,8 @@ function chooseMove () {
             pleaseWait();
             currentCharacter.moves[0].playSound();
             setTimeout(restoreMoves, 4000);
-            console.log('first', currentCharacter.moves[0].uses);
             currentCharacter.moves[0].use();
             moves1Uses.innerText = `${currentCharacter.moves[0].uses}`
-            console.log('second', currentCharacter.moves[0].uses);
         }
         else{
             window.alert('No uses left!');
@@ -511,14 +517,16 @@ let reset = () => {
     console.log(charArray, 'charArray');
     // charArray.push(player1[0].splice(0,1));
     console.log(player1);
+    titleText.style.color = 'white';
     titleText.innerText= 'Select Your Character';
-    titleText.style.marginTop = '50px';
+    titleText.style.marginTop = '75px';
     titleText.style.display = 'block';
     startButton.style.display = 'none';
     health.style.width = '100%';
     healthBar.style.backgroundColor = 'green';
     cpuHealthBar.style.width = '100%';
     cpuHealthBar.style.backgroundColor = 'green';
+    characterName.style.marginTop = '15px';
     moves1Uses.innerText = '8';
     moves2Uses.innerText = '5';
     moves3Uses.innerText = '3';
