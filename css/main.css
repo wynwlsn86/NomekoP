@@ -23,7 +23,7 @@ h3{
 	}
 }
 @keyframes fade-out{
-	100%{
+	0%{
 		opacity: 1;
 	}
 	50%{
@@ -31,6 +31,8 @@ h3{
 	}
 	100%{
 		opacity: 0;
+		display: none;
+		margin-top: -125px;
 	}
 }
 @keyframes drop-in{
@@ -40,6 +42,9 @@ h3{
 }
 @keyframes pull-out{
 	transform: translateY(-400%);
+}
+.absolute{
+	position: absolute;
 }
 .allUses{
 	font-weight: bold;
@@ -147,6 +152,9 @@ h3{
 .none{
 	display: none;
 }
+.puller-out{
+	pull-out 5s ease-in-out 1s forwards;
+}
 .start-button{
 	height: 100px;
 	width: 300px;
@@ -160,6 +168,7 @@ h3{
 .title-text{
 	color: white;
 	font-size: 60pt;
+	z-index: 5;
 	opacity: 0;
 }
 .top-text{
@@ -168,7 +177,7 @@ h3{
 	opacity: 0;
 }
 .fader-in{
-	animation: fade-in 3s ease-in-out 1s forwards;
+	animation: fade-in 2s ease-in-out 2s forwards;
 }
 .fader-out{
 	animation: fade-out 2s ease-in-out 0s forwards;

@@ -3,6 +3,8 @@ let cpu = [];
 let yourTurn = true;
 let currentCharacter = null;
 let cpuCharacter = null;
+let temp = null;
+let cpuRand = null;
 let cpuMove = 0;
 let characterMove;
 let updateHealth;
@@ -144,11 +146,16 @@ window.onload = dropStart();
 
 let fadeIn = () => {
     for(let i = 0; i < characters.length; i++){
+        console.log(characters);
         // characters[i].style.animation = 'fade-in 2s ease-in-out forwards';
+        charArray[i].classList.remove('none');
+        charArray[i].classList.remove('absolute');
+        characters[i].classList.remove('fader-out');
         characters[i].classList.toggle('fader-in');
     };
     topText.innerHTML = 'Select Your Character'
     topText.classList.toggle('fader-in');
+    // startButton.classList.toggle('puller-out');
     startButton.style.animation = 'pull-out 5s ease-in-out 1s forwards';
     titleText.style.display = 'none';
     //can i reverse fade the start button out using fade in, in reverse?
@@ -165,40 +172,70 @@ let disappear = (num) => {
     player1.push(charArray.splice(num,1));
     for(let i = 0; i < charArray.length; i++){
             // charArray[i].style.display = 'none';
-            charArray[i].classList.toggle('fader-out');
+            charArray[i].classList.toggle('fader-in');
+            charArray[i].classList.toggle('none');
         }
     // topText.style.display = 'none';
+    topText.classList.toggle('fader-in');
     topText.classList.toggle('fader-out');
+    // topText.classList.toggle('none');
+
+
+
+    setTimeout(function () {
+        
+        topText.style.marginTop = '-125px';
+    }, 500);
+
 };
 //Sets not chosed characters to display none##############################
 /////////////////////////////////////////////////////////
 let cpuChar = () => {
-    let cpuRand = charArray[Math.floor(Math.random() * 5)];
+    cpuRand = charArray[Math.floor(Math.random() * 5)];
     // cpuCharacter = cpuRand.dataset.name;
     // console.log(cpuCharacter);
     if(cpuRand.id === 'char1'){
         cpuCharacter = mario;
+        char1.classList.toggle('none');
+        char1.classList.toggle('absolute');
+        char1.classList.toggle('fader-in');
     }
     if(cpuRand.id === 'char2'){
         cpuCharacter = kirby;
+        char2.classList.toggle('none');
+        char2.classList.toggle('absolute');
+        char2.classList.toggle('fader-in');
     }
     if(cpuRand.id === 'char3'){
         cpuCharacter = cloud;
+        char3.classList.toggle('none');
+        char3.classList.toggle('absolute');
+        char3.classList.toggle('fader-in');
     }
     if(cpuRand.id === 'char4'){
         cpuCharacter = link;
+        char4.classList.toggle('none');
+        char4.classList.toggle('absolute');
+        char4.classList.toggle('fader-in');
     }
     if(cpuRand.id === 'char5'){
         cpuCharacter = megaMan;
+        char5.classList.toggle('none');
+        char5.classList.toggle('absolute');
+        char5.classList.toggle('fader-in');
     }
     if(cpuRand.id === 'char6'){
         cpuCharacter = guile;
+        char6.classList.toggle('none');
+        char6.classList.toggle('absolute');
+        char6.classList.toggle('fader-in');
     }
     cpuRand.style.display = 'block';
     cpuRand.style.margin = '0% 0% 0% 75%';
 };
 let battleLift = () => {
-    battleMenu.style.animation = 'fade-in 5s ease-in-out 3s forwards';
+    // battleMenu.style.animation = 'fade-in 5s ease-in-out 3s forwards';
+    battleMenu.classList.toggle('fader-in');
     // console.log(currentCharacter.moves);
     battleMoves[0].innerText = currentCharacter.moves[0].name;
     battleMoves[1].innerHTML = currentCharacter.moves[1].name;
@@ -217,9 +254,11 @@ function selectChar () {
     titleText.innerHTML = ' ';
     if(this === char1){
         currentCharacter = mario;
+        this.classList.remove('fader-out');
         disappear(0);
         cpuChar();
-        this.style.postion = 'absolute';
+        // this.style.postion = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.marginLeft = '10px';
         this.style.zIndex = '2';
@@ -227,45 +266,55 @@ function selectChar () {
     }
     if(this === char2){
         currentCharacter = kirby;
+        this.classList.remove('fader-out');
         disappear(1);
         cpuChar();
-        this.style.postion = 'absolute';
+        // this.style.postion = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
         battleLift();
     }
     if(this === char3){
         currentCharacter = cloud;
+        this.classList.remove('fader-out');
         disappear(2);
         cpuChar();
-        this.style.position = 'absolute';
+        // this.style.position = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
         battleLift();
     }
     if(this === char4){
         currentCharacter = link;
+        this.classList.remove('fader-out');
         disappear(3);
         cpuChar();
-        this.style.position = 'absolute';
+        // this.style.position = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
         battleLift();
     }
     if(this === char5){
         currentCharacter = megaMan;
+        this.classList.remove('fader-out');
         disappear(4);
         cpuChar();
-        this.style.position = 'absolute';
+        // this.style.position = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
         battleLift();
     }
     if(this === char6){
         currentCharacter = guile;
+        this.classList.remove('fader-out');
         disappear(5);
         cpuChar();
-        this.style.position = 'absolute';
+        // this.style.position = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
         battleLift();
@@ -346,6 +395,8 @@ let damageCalc = () => {
         healthBar.style.display = 'none';
         health.style.display = 'none';
         startButton.innerHTML = 'Continue?';
+        startButton.removeEventListener('click', fadeIn);
+        startButton.addEventListener('click', reset);
         startButton.display = 'block';
         startButton.style.width = '400px';
         startButton.style.animation = 'drop-in 4s ease-in-out forwards';
@@ -398,6 +449,8 @@ let damageCalc = () => {
         health.style.display = 'none';
         playSong.setAttribute('src', './images/victory.mp3')
         startButton.innerHTML = 'Continue?';
+        startButton.removeEventListener('click', fadeIn);
+        startButton.addEventListener('click', reset);
         startButton.display = 'block';
         startButton.style.width = '400px';
         startButton.style.animation = 'drop-in 4s ease-in-out forwards';
@@ -503,17 +556,26 @@ function chooseMove () {
 };
 
 let reset = () => {
+    temp = player1.splice(0,1);
+    console.log(temp);
+    console.log(temp, 'temp');
+    charArray.splice(temp[0][0].dataset.index, 0, temp[0][0]);
+    console.log(charArray);
     for(let i = 0; i < characters.length; i++){
         characters[i].style.display = 'block';
         characters[i].addEventListener('click', selectChar);
         characters[i].style.zIndex = '2';
-        characters[i].style.position = 'static';
+        // characters[i].style.position = 'static';
         characters[i].style.margin = '50px';
-        fadeIn();
+        characters[i].classList.remove('fader-in');
+        // characters[i].classList.toggle('fader-in');
+        // fadeIn();
     };
-    let temp = player1.splice(0.1);
-    console.log(temp, 'temp');
-    charArray.push(temp[0][0]);
+    fadeIn();
+    // if(currentCharacter === mario){
+    //     charArray.splice(temp[0][0].dataset.index, 0, temp[0][0]);
+    // }
+    // charArray.push(temp[0][0]);
     console.log(charArray, 'charArray');
     // charArray.push(player1[0].splice(0,1));
     console.log(player1);
