@@ -35,9 +35,25 @@ h3{
 		margin-top: -125px;
 	}
 }
+@keyframes basicAttack {
+	0%{
+		transform: translateX(0px);
+	}
+	50%{
+		transform: translateX(100px);
+	}
+	100%{
+		transform: translateX(0px);
+	}
+}
 @keyframes drop-in{
 	100%{
 		transform: translateY(400%);
+	}
+}
+@keyframes spinAttack{
+	100%{
+		transform: rotate(360deg)
 	}
 }
 @keyframes pull-out{
@@ -53,6 +69,12 @@ h3{
 	height: 100vh;
 	width: 100vw;
 	display: flex;
+}
+.basic-attack{
+	animation: basicAttack 2s forwards;
+}
+.spin-attack{
+	animation: spinAttack 2s forwards;
 }
 .button-box{
 	transition: 4s ease 1s;

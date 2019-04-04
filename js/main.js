@@ -343,6 +343,32 @@ function chooseCpuMove () {
     setTimeout(removeMenu, 3000);
 };
 
+// let clear = (name) => {
+//     clearInterval(name);
+// };
+
+let attack = () => {
+    // let forward = () => {
+    //     player1[0][0].style.left = '30px';
+    // }
+    // let forw = setInterval(forward, 5);
+    // setTimeout(clear(forw), 1000);
+    // setTimeout(function(){
+    //     let backward = () => {
+    //         player1[0][0].style.left = '-30px';
+    //     }
+    //     let back = setInterval(backward, 50);
+    //     setTimeout(clear(back), 1000);
+    // }, 1000)
+    let stopAttack = () => {
+        player1[0][0].classList.toggle('basic-attack')
+    }
+    player1[0][0].style.opacity = '1';
+    player1[0][0].classList.remove('fader-in');
+    player1[0][0].classList.toggle('spin-attack');
+    console.log(player1[0][0].classList);
+    setTimeout(stopAttack, 2000);
+};
 
 let damageCalc = () => {
     cpuCharacter.takeDmg(characterMove.dmg);
@@ -352,8 +378,9 @@ let damageCalc = () => {
     currentCharacter.takeDmg(cpuMove.dmg);
     healthPrecent =  (currentCharacter.hp / 200) * 100;
     health.style.width = healthPrecent + '%';
+    attack();
     console.log(cpuHealth, 'cpu hp');
-    console.log(currentCharacter.hp)
+    console.log(currentCharacter.hp);
     if(healthPrecent <= 60 && healthPrecent > 30){
         console.log('yellow');
         health.style.backgroundColor = 'yellow';
