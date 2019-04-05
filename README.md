@@ -1,7 +1,7 @@
 # Wayne-Project1
 RPG Style Turn Based Battle Game
 
-Hosted: https://wynwlsn86.github.io/NomekoP/
+Hosted: http://anything-i-want.surge.sh/
 <br>
 Wireframes: https://www.dropbox.com/sh/rzm353rmi16og48/AADLH7OfoSs43ANQf-FK5ddLa?dl=0
 
