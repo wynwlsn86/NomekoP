@@ -209,16 +209,19 @@ let disappear = (num) => {
     player1.push(charArray.splice(num,1));
     for(let i = 0; i < charArray.length; i++){
             // charArray[i].style.display = 'none';
+            
             charArray[i].classList.toggle('fader-in');
             charArray[i].classList.toggle('none');
         }
-    
-    topText.classList.toggle('fader-in');
+        topText.style.opacity = '1';
+    topText.classList.remove('fader-in');
     topText.classList.toggle('fader-out');
 //#######################this is causing an issue!!!
     setTimeout(function () {
-        
+        topText.classList.remove('fader-in');
+        topText.classList.toggle('.fader-out');
         topText.style.marginTop = '-200px';
+        topText.style.opacity = '0';
     }, 5);
 };
 //Sets not chosed characters to display none##############################
@@ -287,6 +290,8 @@ function selectChar () {
         this.classList.remove('fader-out');
         disappear(0);
         cpuChar();
+        // topText.classList.toggle('fader-in');
+        // topText.classList.toggle('fader-out');
         // this.style.postion = 'absolute';
         this.classList.toggle('absolute');
         this.style.marginTop = '100px';
