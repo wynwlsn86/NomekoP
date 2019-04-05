@@ -115,11 +115,11 @@ class Moves {
 
 //Moves Class
 
-let chargeBlast = new Moves('Charge Blast', 15, 10, '#');
-let dash = new Moves('Dash', 18, 8, '#');
-let topSpin = new Moves('Charge Blast', 24, 5, '#');
-let flameBlast= new Moves('Flame Blast', 30, 4, '#');
-//megaMan Moves
+let dash = new Moves('Dash', 15, 10, './images/megaman1.wav');
+let topSpin = new Moves('Top Spin', 18, 8, './images/megaman2.wav');
+let chargeBlast = new Moves('Charge Blast', 24, 5, './images/megaman3.wav');
+let flameBlast= new Moves('Flame Blast', 30, 4, './images/megaman4.wav');
+//megaMan Moves##
 
 let smash = new Moves('Smash', 30, 4, '#');
 let hop = new Moves('Hop', 15, 10, '#');
@@ -130,21 +130,21 @@ let chomp = new Moves('Chomp', 15, 10, './images/kirbyCho.wav');
 let kirbyKick = new Moves('Kirby Kick', 18, 8, './images/kirbyKick.wav');
 let explode = new Moves('Explode', 24, 5, './images/kirbyExp.wav');
 let hurricaneBlast = new Moves('Hurricane Blast', 30, 4, './images/kirbyHur.wav');
-//kirby Moves
-let slice = new Moves('Slice', 15, 10, '#');
-let limitBreak = new Moves('Limit Break', 18, 8, '#');
-let omniSlash = new Moves('Omni Slash', 24, 5, '#');
-let knights = new Moves('Knights of the Round', 30, 4, '#');
+//kirby Moves##
+let slice = new Moves('Slice', 15, 10, './images/cloud1.wav');
+let limitBreak = new Moves('Limit Break', 18, 8, './images/cloud2.wav');
+let omniSlash = new Moves('Omni Slash', 24, 5, './images/cloud3.wav');
+let knights = new Moves('Knights of the Round', 30, 4, './images/cloud4.wav');
 //cloud Moves
-let slash = new Moves('Slash', 15, 10, './images/link2.wav');
-let parisole = new Moves('Parisole', 18, 8, './images/link4.wav');
-let piroette = new Moves('Piroette', 24, 5, './images/link3.wav');
-let umbrellaSmash = new Moves('Umbrella Smash', 30, 4, './images/link.wav');
+let slash = new Moves('Slash', 15, 10, './images/peach1.wav');
+let parisole = new Moves('Parisole', 18, 8, './images/peach2.wav');
+let piroette = new Moves('Piroette', 24, 5, './images/peach3.wav');
+let umbrellaSmash = new Moves('Umbrella Smash', 30, 4, './images/peach4.wav');
 //peach Moves
-let tackle= new Moves('Tackle', 15, 10, '#');
-let quickAttack = new Moves('Quick Attack', 18, 8, '#');
-let thunderBolt = new Moves('Thunder Bolt', 24, 5, '#');
-let thunder = new Moves('Thunder', 30, 4, '#');
+let tackle= new Moves('Tackle', 15, 10, './images/pika1.wav');
+let quickAttack = new Moves('Quick Attack', 18, 8, './images/pika2.wav');
+let thunderBolt = new Moves('Thunder Bolt', 24, 5, './images/pika3.wav');
+let thunder = new Moves('Thunder', 30, 4, './images/pika4.wav');
 //pika moves
 //animations not set #############################################
 
@@ -216,7 +216,6 @@ let disappear = (num) => {
         topText.style.opacity = '1';
     topText.classList.remove('fader-in');
     topText.classList.toggle('fader-out');
-//#######################this is causing an issue!!!
     setTimeout(function () {
         topText.classList.remove('fader-in');
         topText.classList.toggle('.fader-out');
