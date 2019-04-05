@@ -97,7 +97,6 @@ class Characters {
 
 //Character Class
 
-
 class Moves {
     constructor(name, dmg, uses, sound){
         this.name = name;
@@ -121,10 +120,10 @@ let chargeBlast = new Moves('Charge Blast', 24, 5, './images/megaman3.wav');
 let flameBlast= new Moves('Flame Blast', 30, 4, './images/megaman4.wav');
 //megaMan Moves##
 
-let smash = new Moves('Smash', 30, 4, '#');
-let hop = new Moves('Hop', 15, 10, '#');
-let pound = new Moves('Pound', 24, 5, '#');
-let kick = new Moves('Kick', 18, 8, '#');
+let smash = new Moves('Smash', 30, 4, './images/mario1.wav');
+let hop = new Moves('Hop', 15, 10, './images/mario2.wav');
+let pound = new Moves('Pound', 24, 5, './images/mario3.wav');
+let kick = new Moves('Kick', 18, 8, './images/mario4.wav');
 //mario Moves
 let chomp = new Moves('Chomp', 15, 10, './images/kirbyCho.wav');
 let kirbyKick = new Moves('Kirby Kick', 18, 8, './images/kirbyKick.wav');
@@ -146,8 +145,6 @@ let quickAttack = new Moves('Quick Attack', 18, 8, './images/pika2.wav');
 let thunderBolt = new Moves('Thunder Bolt', 24, 5, './images/pika3.wav');
 let thunder = new Moves('Thunder', 30, 4, './images/pika4.wav');
 //pika moves
-//animations not set #############################################
-
 //Moves
 
 let megaMan = new Characters('Mega-Man', 200, [chargeBlast, dash, topSpin, flameBlast]);
@@ -175,7 +172,6 @@ let pika = new Characters('Pikachu', 200, [tackle, quickAttack, thunderBolt, thu
 let dropStart = () => {
     startButton.style.animation = 'drop-in 4s ease-in-out forwards';
     titleText.innerHTML = 'NOMEKOP';
-    // titleText.style.animation = 'fade-in 4s ease-in-out 3s forwards';
     titleText.classList.toggle('fader-in');
 }
 
@@ -208,8 +204,6 @@ startButton.addEventListener('click', fadeIn);
 let disappear = (num) => {
     player1.push(charArray.splice(num,1));
     for(let i = 0; i < charArray.length; i++){
-            // charArray[i].style.display = 'none';
-            
             charArray[i].classList.toggle('fader-in');
             charArray[i].classList.toggle('none');
         }
@@ -289,9 +283,6 @@ function selectChar () {
         this.classList.remove('fader-out');
         disappear(0);
         cpuChar();
-        // topText.classList.toggle('fader-in');
-        // topText.classList.toggle('fader-out');
-        // this.style.postion = 'absolute';
         this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.marginLeft = '10px';
@@ -303,7 +294,6 @@ function selectChar () {
         this.classList.remove('fader-out');
         disappear(1);
         cpuChar();
-        // this.style.postion = 'absolute';
         this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
@@ -314,7 +304,6 @@ function selectChar () {
         this.classList.remove('fader-out');
         disappear(2);
         cpuChar();
-        // this.style.position = 'absolute';
         this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
@@ -325,7 +314,6 @@ function selectChar () {
         this.classList.remove('fader-out');
         disappear(3);
         cpuChar();
-        // this.style.position = 'absolute';
         this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
@@ -336,7 +324,6 @@ function selectChar () {
         this.classList.remove('fader-out');
         disappear(4);
         cpuChar();
-        // this.style.position = 'absolute';
         this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
@@ -347,7 +334,6 @@ function selectChar () {
         this.classList.remove('fader-out');
         disappear(5);
         cpuChar();
-        // this.style.position = 'absolute';
         this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
@@ -364,7 +350,6 @@ for(let i = 0; i < characters.length; i++){
 
 function chooseCpuMove () {
     let randomNum = Math.floor(Math.random() * 4);
-    console.log(randomNum);
     cpuMove = cpuCharacter.moves[randomNum];
     showCpuMove.innerText = cpuMove.name;
     let addMenu = () => {
@@ -376,10 +361,6 @@ function chooseCpuMove () {
     };
     setTimeout(removeMenu, 3000);
 };
-
-// let clear = (name) => {
-//     clearInterval(name);
-// };
 
 let basicAttack = () => {
     let stopAttack = () => {
@@ -609,7 +590,6 @@ let reset = () => {
     titleText.innerText= 'Select Your Character';
     titleText.style.marginTop = '75px';
     titleText.style.display = 'block';
-    // startButton.style.animation = 'pull-out 5s ease-in-out 1s forwards';
     health.style.width = '100%';
     health.style.backgroundColor = 'green';
     cpuHealthBar.style.width = '100%';
