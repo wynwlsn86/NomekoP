@@ -10,43 +10,44 @@
 		<audio src="" volume="0.1" id="playSong"  autoplay></audio>
 		<audio src="" id="attackSound" volume= '1' autoplay></audio>
 		<audio src="" id="cpuSound" autoplay></audio>
-	<!-- <button class='test' onclick='fadeIn()'>test</button> -->
 	<button class='start-button'>Start</button>
 		<h1 class='title-text'></h1>
 		<h1 class='top-text'></h1>
 	<div class="arena">
-			
-			<div class='characters' id='char1' data-name='mario'><img src="./images/mario.png" alt="Mario"></div>
-			<div class='characters' id='char2' data-name='kirby'><img src="./images/kirby.png" alt="Kirby"></div>
-			<div class='characters' id='char3' data-name='cloud'><img src="./images/cloud.png" alt="Cloud"></div>
-			<div class='characters' id='char4' data-name='link'><img src="./images/link.png" alt="Link"></div>
-			<div class='characters' id='char5' data-name='megaMan'><img src="./images/megaMan.png" alt="MegaMan"></div>
-			<div class='characters' id='char6' data-name='guile'><img src="./images/guile.png" alt="Guile"></div>
-			
+			<div class='characters' id='char1' data-name='mario' data-index='0'><img src="./images/Newmario.png" alt="Mario"></div>
+			<div class='characters' id='char2' data-name='kirby' data-index='1'><img src="./images/Newkirby.png" alt="Kirby"></div>
+			<div class='characters' id='char3' data-name='cloud' data-index='2'><img src="./images/cloud.png" alt="Cloud"></div>
+			<div class='characters' id='char4' data-name='peach' data-index='3'><img src="./images/Newpeach.png" alt="Peach"></div>
+			<div class='characters' id='char5' data-name='megaMan' data-index='4'><img src="./images/Newmegaman.png" alt="MegaMan"></div>
+			<div class='characters' id='char6' data-name='pika' data-index='5'><img src="./images/Newpika.png" alt="Pikachu"></div>
 			<div class="healthBar">
 				<div class="health"></div>
-				<p class="character-name">Name</p
-			></div>
+				<p class="character-name">Name</p>
+			</div>
 			<div class="cpuBar">
 				<div class="cpu-health"></div>
 				<p class="cpu-name">Name</p>
 			</div>
 			<div class="battle-menu">
 				<div class='border'>
-					<h3 class="moves" id='move1'></h1>
-					<p class='allUses'><span class='move1-uses'>8</span>/8</p>
+					<h3 class="moves" id='move1'></h3>
+					<p class='dmg-amount'>Damage: <span id='dmg1'>15</span></p>
+					<p class='allUses'>Uses: <span class='move1-uses'>10</span>/10</p>
 				</div>
 				<div class='border'>
-					<h3 class="moves" id='move2'></h1>
-						<p class='allUses'><span class='move2-uses'>5</span>/5</p>
+					<h3 class="moves" id='move2'></h3>
+					<p class='dmg-amount'>Damage: <span id='dmg1'>18</span></p>
+					<p class='allUses'>Uses: <span class='move2-uses'>8</span>/8</p>
 				</div>
 				<div class='border'>
-					<h3 class="moves" id='move3'></h1>
-						<p class='allUses'><span class='move3-uses'>3</span>/3</p>
+					<h3 class="moves" id='move3'></h3>
+					<p class='dmg-amount'>Damage: <span id='dmg1'>24</span></p>
+					<p class='allUses'>Uses: <span class='move3-uses'>5</span>/5</p>
 				</div>
 				<div class='border'>
-					<h3 class="moves" id='move4'></h1>
-						<p class='allUses'><span class='move4-uses'>2</span>/2</p>
+					<h3 class="moves" id='move4'></h3>
+					<p class='dmg-amount'>Damage: <span id='dmg1'>30</span></p>
+					<p class='allUses'>Uses: <span class='move4-uses'>4</span>/4</p>
 				</div>
 			</div>
 			<div class='cpu-move'>

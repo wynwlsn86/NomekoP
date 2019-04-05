@@ -3,6 +3,8 @@ let cpu = [];
 let yourTurn = true;
 let currentCharacter = null;
 let cpuCharacter = null;
+let temp = null;
+let cpuRand = null;
 let cpuMove = 0;
 let characterMove;
 let updateHealth;
@@ -19,10 +21,15 @@ let startButton = document.querySelector('.start-button');
 let titleText = document.querySelector('.title-text');
 let battleMenu = document.querySelector('.battle-menu');
 let allUses = document.querySelectorAll('.allUses');
+let dmgAmount = document.querySelectorAll('.dmg-amount');
 let moves1Uses = document.querySelector('.move1-uses');
 let moves2Uses = document.querySelector('.move2-uses');
 let moves3Uses = document.querySelector('.move3-uses');
 let moves4Uses = document.querySelector('.move4-uses');
+let dmg1 = document.querySelector('#dmg1');
+let dmg2 = document.querySelector('#dmg2');
+let dmg3 = document.querySelector('#dmg3');
+let dmg4 = document.querySelector('#dmg4');
 let cpuMenu = document.querySelector('.cpu-move');
 let showCpuMove = document.querySelector('.cpu-move-result');
 let battleMoves = document.querySelectorAll('.moves');
@@ -50,10 +57,45 @@ class Characters {
         this.dmg = dmg;
         this.hp = this.hp - this.dmg;
     }
+    basicAttack = () => {
+        let stopAttack = () => {
+            player1[0][0].classList.toggle('basic-attack')
+        }
+        player1[0][0].style.opacity = '1';
+        player1[0][0].classList.remove('fader-in');
+        player1[0][0].classList.toggle('basic-attack');
+        setTimeout(stopAttack, 2000);
+    }
+    spinAttack = () => {
+        let stopAttack = () => {
+            player1[0][0].classList.toggle('spin-attack')
+        }
+        player1[0][0].style.opacity = '1';
+        player1[0][0].classList.remove('fader-in');
+        player1[0][0].classList.toggle('spin-attack');
+        setTimeout(stopAttack, 2000);
+    }
+    growAttack = () => {
+        let stopAttack = () => {
+            player1[0][0].classList.toggle('grow-attack')
+        }
+        player1[0][0].style.opacity = '1';
+        player1[0][0].classList.remove('fader-in');
+        player1[0][0].classList.toggle('grow-attack');
+        setTimeout(stopAttack, 2000);
+    }
+    matrixAttack = () => {
+        let stopAttack = () => {
+            player1[0][0].classList.toggle('matrix-attack')
+        }
+        player1[0][0].style.opacity = '1';
+        player1[0][0].classList.remove('fader-in');
+        player1[0][0].classList.toggle('matrix-attack');
+        setTimeout(stopAttack, 2000);
+    }
 };
 
 //Character Class
-
 
 class Moves {
     constructor(name, dmg, uses, sound){
@@ -72,125 +114,162 @@ class Moves {
 
 //Moves Class
 
-let chargeBlast = new Moves('Charge Blast', 15, 8, '#');
-let dash = new Moves('Dash', 18, 5, '#');
-let topSpin = new Moves('Charge Blast', 24, 3, '#');
-let flameBlast= new Moves('Flame Blast', 30, 2, '#');
-//megaMan Moves
+let dash = new Moves('Dash', 15, 10, './images/megaman1.wav');
+let topSpin = new Moves('Top Spin', 18, 8, './images/megaman2.wav');
+let chargeBlast = new Moves('Charge Blast', 24, 5, './images/megaman3.wav');
+let flameBlast= new Moves('Flame Blast', 30, 4, './images/megaman4.wav');
+//megaMan Moves##
 
-let smash = new Moves('Smash', 30, 2, '#');
-let hop = new Moves('Hop', 15, 8, '#');
-let pound = new Moves('Pound', 24, 3, '#');
-let kick = new Moves('Kick', 18, 5, '#');
+let smash = new Moves('Smash', 30, 4, './images/mario1.wav');
+let hop = new Moves('Hop', 15, 10, './images/mario2.wav');
+let pound = new Moves('Pound', 24, 5, './images/mario3.wav');
+let kick = new Moves('Kick', 18, 8, './images/mario4.wav');
 //mario Moves
-let chomp = new Moves('Chomp', 15, 8, './images/kirbyCho.wav');
-let kirbyKick = new Moves('Kirby Kick', 18, 5, './images/kirbyKick.wav');
-let explode = new Moves('Explode', 24, 3, './images/kirbyExp.wav');
-let hurricaneBlast = new Moves('Hurricane Blast', 30, 2, './images/kirbyHur.wav');
-//kirby Moves
-let slice = new Moves('Slice', 15, 8, '#');
-let limitBreak = new Moves('Limit Break', 18, 5, '#');
-let omniSlash = new Moves('Omni Slash', 24, 3, '#');
-let knights = new Moves('Knights of the Round', 30, 2, '#');
+let chomp = new Moves('Chomp', 15, 10, './images/kirbyCho.wav');
+let kirbyKick = new Moves('Kirby Kick', 18, 8, './images/kirbyKick.wav');
+let explode = new Moves('Explode', 24, 5, './images/kirbyExp.wav');
+let hurricaneBlast = new Moves('Hurricane Blast', 30, 4, './images/kirbyHur.wav');
+//kirby Moves##
+let slice = new Moves('Slice', 15, 10, './images/cloud1.wav');
+let limitBreak = new Moves('Limit Break', 18, 8, './images/cloud2.wav');
+let omniSlash = new Moves('Omni Slash', 24, 5, './images/cloud3.wav');
+let knights = new Moves('Knights of the Round', 30, 4, './images/cloud4.wav');
 //cloud Moves
-let slash = new Moves('Slash', 15, 8, './images/link2.wav');
-let dukuNut = new Moves('Duku Nut', 18, 5, './images/link4.wav');
-let leapingSlash = new Moves('Leaping Slash', 24, 3, './images/link3.wav');
-let tornadoSlash = new Moves('Tornado Slash', 30, 2, './images/link.wav');
-//link Moves
-let sonicPoke = new Moves('Sonic Poke', 15, 8, '#');
-let sonicKick = new Moves('Sonic Kick', 18, 5, '#');
-let sonicBlade = new Moves('Sonic Blade', 24, 3, '#');
-let sonicBoom = new Moves('Sonic Bloom', 30, 2, '#');
-//animations not set #############################################
-
+let slash = new Moves('Slash', 15, 10, './images/peach1.wav');
+let parisole = new Moves('Parisole', 18, 8, './images/peach2.wav');
+let piroette = new Moves('Piroette', 24, 5, './images/peach3.wav');
+let umbrellaSmash = new Moves('Umbrella Smash', 30, 4, './images/peach4.wav');
+//peach Moves
+let tackle= new Moves('Tackle', 15, 10, './images/pika1.wav');
+let quickAttack = new Moves('Quick Attack', 18, 8, './images/pika2.wav');
+let thunderBolt = new Moves('Thunder Bolt', 24, 5, './images/pika3.wav');
+let thunder = new Moves('Thunder', 30, 4, './images/pika4.wav');
+//pika moves
 //Moves
 
 let megaMan = new Characters('Mega-Man', 200, [chargeBlast, dash, topSpin, flameBlast]);
 
-let mario = new Characters('Mario', 200, [smash, hop, pound, kick]);
+let mario = new Characters('Mario', 200, [hop, kick, pound, smash]);
 
 let kirby = new Characters('Kirby', 200, [chomp, kirbyKick, explode, hurricaneBlast]);
 
 let cloud = new Characters('Cloud', 200, [slice, limitBreak, omniSlash, knights]);
 
-let link = new Characters('Link', 200, [slash, dukuNut, leapingSlash,tornadoSlash]);
+let peach = new Characters('Peach', 200, [slash, parisole, piroette,umbrellaSmash]);
 
-let guile = new Characters('Guile', 200, [sonicPoke, sonicKick, sonicBlade, sonicBoom]);
+let pika = new Characters('Pikachu', 200, [tackle, quickAttack, thunderBolt, thunder]);
 
 
 //Characters
+//All Characters and Moves defined########################################
+/////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 let dropStart = () => {
     startButton.style.animation = 'drop-in 4s ease-in-out forwards';
     titleText.innerHTML = 'NOMEKOP';
-    titleText.style.animation = 'fade-in 4s ease-in-out 3s forwards';
+    titleText.classList.toggle('fader-in');
 }
 
 window.onload = dropStart();
 //Start button to drop in, and title to fade in on a delax
+//First state, button drops in with tittle###############################
+///////////////////////////////////////////////////////////////////////////
 
 
 
 let fadeIn = () => {
     for(let i = 0; i < characters.length; i++){
-        characters[i].style.animation = 'fade-in 2s ease-in-out forwards';
+        charArray[i].classList.remove('none');
+        charArray[i].classList.remove('absolute');
+        characters[i].classList.remove('fader-out');
+        characters[i].classList.toggle('fader-in');
     };
-    
     topText.innerHTML = 'Select Your Character'
-    topText.style.animation = 'fade-in 3s ease-in-out 1s forwards';
+    topText.classList.toggle('fader-in');
     startButton.style.animation = 'pull-out 5s ease-in-out 1s forwards';
     titleText.style.display = 'none';
-    //can i reverse fade the start button out using fade in, in reverse?
-    
 };
-
 startButton.addEventListener('click', fadeIn);
+//Characters fade-in, in the line-up for selection############################
+//////////////////////////////////////////////////////////////////////////////
 //Fade in Function to run after Start is fired onClick
+
+
 
 let disappear = (num) => {
     player1.push(charArray.splice(num,1));
     for(let i = 0; i < charArray.length; i++){
-            charArray[i].style.display = 'none';
+            charArray[i].classList.toggle('fader-in');
+            charArray[i].classList.toggle('none');
         }
-    topText.style.display = 'none';
+        topText.style.opacity = '1';
+    topText.classList.remove('fader-in');
+    topText.classList.toggle('fader-out');
+    setTimeout(function () {
+        topText.classList.remove('fader-in');
+        topText.classList.toggle('.fader-out');
+        topText.style.marginTop = '-200px';
+        topText.style.opacity = '0';
+    }, 5);
 };
-
+//Sets not chosed characters to display none##############################
+/////////////////////////////////////////////////////////
 let cpuChar = () => {
-    let cpuRand = charArray[Math.floor(Math.random() * 5)];
-    // cpuCharacter = cpuRand.dataset.name;
-    // console.log(cpuCharacter);
+    cpuRand = charArray[Math.floor(Math.random() * 5)];
     if(cpuRand.id === 'char1'){
         cpuCharacter = mario;
+        char1.classList.toggle('none');
+        char1.classList.toggle('absolute');
+        char1.classList.toggle('fader-in');
     }
     if(cpuRand.id === 'char2'){
         cpuCharacter = kirby;
+        char2.classList.toggle('none');
+        char2.classList.toggle('absolute');
+        char2.classList.toggle('fader-in');
     }
     if(cpuRand.id === 'char3'){
         cpuCharacter = cloud;
+        char3.classList.toggle('none');
+        char3.classList.toggle('absolute');
+        char3.classList.toggle('fader-in');
     }
     if(cpuRand.id === 'char4'){
-        cpuCharacter = link;
+        cpuCharacter = peach;
+        char4.classList.toggle('none');
+        char4.classList.toggle('absolute');
+        char4.classList.toggle('fader-in');
     }
     if(cpuRand.id === 'char5'){
         cpuCharacter = megaMan;
+        char5.classList.toggle('none');
+        char5.classList.toggle('absolute');
+        char5.classList.toggle('fader-in');
     }
     if(cpuRand.id === 'char6'){
-        cpuCharacter = guile;
+        cpuCharacter = pika;
+        char6.classList.toggle('none');
+        char6.classList.toggle('absolute');
+        char6.classList.toggle('fader-in');
     }
     cpuRand.style.display = 'block';
     cpuRand.style.margin = '0% 0% 0% 75%';
 };
 let battleLift = () => {
-    battleMenu.style.animation = 'fade-in 5s ease-in-out 3s forwards';
-    // console.log(currentCharacter.moves);
+    battleMenu.classList.toggle('fader-in');
     battleMoves[0].innerText = currentCharacter.moves[0].name;
     battleMoves[1].innerHTML = currentCharacter.moves[1].name;
     battleMoves[2].innerHTML = currentCharacter.moves[2].name;
     battleMoves[3].innerHTML = currentCharacter.moves[3].name;
     characterName.innerHTML = currentCharacter.name;
     cpuName.innerHTML = cpuCharacter.name;
-    battleMenu.style.display = 'block';
+    battleMenu.style.display = 'grid';
+    health.style.display = 'block';
     healthBar.style.display = 'block';
     cpuBar.style.display = 'block';
     playSong.setAttribute('src', './images/ff7.mp3')
@@ -198,11 +277,13 @@ let battleLift = () => {
 
 
 function selectChar () {
+    titleText.innerHTML = ' ';
     if(this === char1){
         currentCharacter = mario;
+        this.classList.remove('fader-out');
         disappear(0);
         cpuChar();
-        this.style.postion = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.marginLeft = '10px';
         this.style.zIndex = '2';
@@ -210,45 +291,50 @@ function selectChar () {
     }
     if(this === char2){
         currentCharacter = kirby;
+        this.classList.remove('fader-out');
         disappear(1);
         cpuChar();
-        this.style.postion = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
         battleLift();
     }
     if(this === char3){
         currentCharacter = cloud;
+        this.classList.remove('fader-out');
         disappear(2);
         cpuChar();
-        this.style.position = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
         battleLift();
     }
     if(this === char4){
-        currentCharacter = link;
+        currentCharacter = peach;
+        this.classList.remove('fader-out');
         disappear(3);
         cpuChar();
-        this.style.position = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
         battleLift();
     }
     if(this === char5){
         currentCharacter = megaMan;
+        this.classList.remove('fader-out');
         disappear(4);
         cpuChar();
-        this.style.position = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
         battleLift();
     }
     if(this === char6){
-        currentCharacter = guile;
+        currentCharacter = pika;
+        this.classList.remove('fader-out');
         disappear(5);
         cpuChar();
-        this.style.position = 'absolute';
+        this.classList.toggle('absolute');
         this.style.marginTop = '100px';
         this.style.zIndex = '2';
         battleLift();
@@ -263,7 +349,6 @@ for(let i = 0; i < characters.length; i++){
 //This whole section selects a character for player and cpu and makes others dissappear. Will also put the 2 characters in the right postions for battle
 
 function chooseCpuMove () {
-    console.log(this);
     let randomNum = Math.floor(Math.random() * 4);
     cpuMove = cpuCharacter.moves[randomNum];
     showCpuMove.innerText = cpuMove.name;
@@ -277,6 +362,15 @@ function chooseCpuMove () {
     setTimeout(removeMenu, 3000);
 };
 
+let basicAttack = () => {
+    let stopAttack = () => {
+        player1[0][0].classList.toggle('basic-attack')
+    }
+    player1[0][0].style.opacity = '1';
+    player1[0][0].classList.remove('fader-in');
+    player1[0][0].classList.toggle('basic-attack');
+    setTimeout(stopAttack, 2000);
+};
 
 let damageCalc = () => {
     cpuCharacter.takeDmg(characterMove.dmg);
@@ -286,66 +380,66 @@ let damageCalc = () => {
     currentCharacter.takeDmg(cpuMove.dmg);
     healthPrecent =  (currentCharacter.hp / 200) * 100;
     health.style.width = healthPrecent + '%';
-    console.log(cpuHealth, 'cpu hp');
     if(healthPrecent <= 60 && healthPrecent > 30){
-        console.log('yellow');
         health.style.backgroundColor = 'yellow';
     }
     else if(healthPrecent <= 30 && healthPrecent > 10){
-        console.log('red');
         health.style.backgroundColor = 'red';
     }
     else if(healthPrecent <= 10 && healthPrecent > 0){
-        console.log('deading');
         health.style.backgroundColor = 'rgb(88, 1, 1)';
     }
     else if(healthPrecent <= 0){
-        console.log('dead');
         if(currentCharacter.name === 'Mario'){
-            char1.style.display = 'none';
+            char1.classList.toggle('fader-out');
         }
         if(currentCharacter.name === 'Kirby'){
-            char2.style.display = 'none';
+            char2.classList.toggle('fader-out');
         }
         if(currentCharacter.name === 'Cloud'){
-            char3.style.display = 'none';
+            char3.classList.toggle('fader-out');
         }
-        if(currentCharacter.name === 'Link'){
-            char4.style.display = 'none';
+        if(currentCharacter.name === 'Peach'){
+            char4.classList.toggle('fader-out');
         }
         if(currentCharacter.name === 'Mega-Man'){
-            char5.style.display = 'none';
+            char5.classList.toggle('fader-out');
         }
-        if(currentCharacter.name === 'Guile'){
-            char6.style.display = 'none';
+        if(currentCharacter.name === 'Pikachu'){
+            char6.classList.toggle('fader-out');
         }
         playSong.setAttribute('src', './images/defeat.mp3')
         titleText.style.display = 'block';
         titleText.innerText = 'DEFEATED!!!!';
         titleText.style.color = 'red';
         battleMenu.style.display = 'none';
+        cpuBar.style.display = 'none';
         healthBar.style.display = 'none';
         health.style.display = 'none';
         startButton.innerHTML = 'Continue?';
+        startButton.removeEventListener('click', fadeIn);
+        startButton.addEventListener('click', reset);
         startButton.display = 'block';
-        startButton.style.width = '400' + px;
+        startButton.style.width = '400px';
         startButton.style.animation = 'drop-in 4s ease-in-out forwards';
+        currentCharacter.moves[0].uses = '10';
+        currentCharacter.moves[1].uses = '8';
+        currentCharacter.moves[2].uses = '5';
+        currentCharacter.moves[3].uses = '4';
+        currentCharacter.hp = '200';
+        cpuCharacter.hp = '200';
 
     };
     if(cpuHealthPrecent <= 60 && cpuHealthPrecent > 30){
-        console.log('yellow');
         cpuHealthBar.style.backgroundColor = 'yellow';
     }
     else if(cpuHealthPrecent <= 30 && cpuHealthPrecent > 10){
-        console.log('red');
         cpuHealthBar.style.backgroundColor = 'red';
     }
     else if(cpuHealthPrecent <= 10 && cpuHealthPrecent > 0){
-        console.log('deading');
         cpuHealthBar.style.backgroundColor = 'rgb(88, 1, 1)';
     }
     else if(cpuHealthPrecent <= 0){
-        console.log('dead');
         if(cpuCharacter.name === 'Mario'){
             char1.style.display = 'none';
         }
@@ -355,26 +449,33 @@ let damageCalc = () => {
         if(cpuCharacter.name === 'Cloud'){
             char3.style.display = 'none';
         }
-        if(cpuCharacter.name === 'Link'){
+        if(cpuCharacter.name === 'Peach'){
             char4.style.display = 'none';
         }
         if(cpuCharacter.name === 'Mega-Man'){
             char5.style.display = 'none';
         }
-        if(cpuCharacter.name === 'Guile'){
+        if(cpuCharacter.name === 'Pikachu'){
             char6.style.display = 'none';
         }
         titleText.style.display = 'block';
         titleText.innerText = 'VICTORY!!!!';
         titleText.style.color = 'green';
         battleMenu.style.display = 'none';
+        cpuBar.style.display = 'none';
         healthBar.style.display = 'none';
         health.style.display = 'none';
         playSong.setAttribute('src', './images/victory.mp3')
         startButton.innerHTML = 'Continue?';
+        startButton.removeEventListener('click', fadeIn);
+        startButton.addEventListener('click', reset);
         startButton.display = 'block';
-        startButton.style.width = '400' + px;
+        startButton.style.width = '400px';
         startButton.style.animation = 'drop-in 4s ease-in-out forwards';
+        currentCharacter.moves[0].uses = '8';
+        currentCharacter.moves[1].uses = '5';
+        currentCharacter.moves[2].uses = '3';
+        currentCharacter.moves[3].uses = '2';
     };
 };
 
@@ -387,6 +488,7 @@ let pleaseWait = () => {
     battleMoves[3].innerHTML = '';
     for(let i = 0; i < allUses.length; i++){
         allUses[i].style.display = 'none';
+        dmgAmount[i].style.display= 'none';
     };
 }
 
@@ -399,6 +501,7 @@ let restoreMoves = () => {
     battleMoves[3].innerHTML = currentCharacter.moves[3].name;
     for(let i = 0; i < allUses.length; i++){
         allUses[i].style.display = 'block';
+        dmgAmount[i].style.display = 'block';
     };
 }
 
@@ -407,15 +510,14 @@ function chooseMove () {
     if(this.id === 'move1'){
         if(currentCharacter.moves[0].uses > 0){
             characterMove = currentCharacter.moves[0];
+            currentCharacter.basicAttack();
             chooseCpuMove();
             damageCalc();
             pleaseWait();
             currentCharacter.moves[0].playSound();
             setTimeout(restoreMoves, 4000);
-            console.log('first', currentCharacter.moves[0].uses);
             currentCharacter.moves[0].use();
-            moves1Uses.innerText = `${currentCharacter.moves[0].uses}`
-            console.log('second', currentCharacter.moves[0].uses);
+            moves1Uses.innerText = `${currentCharacter.moves[0].uses}`;
         }
         else{
             window.alert('No uses left!');
@@ -424,16 +526,15 @@ function chooseMove () {
     }
     if(this.id === 'move2'){
         if(currentCharacter.moves[1].uses > 0){
-            characterMove = currentCharacter.moves[0];
+            characterMove = currentCharacter.moves[1];
+            currentCharacter.spinAttack();
             chooseCpuMove();
             damageCalc();
             pleaseWait();
             currentCharacter.moves[1].playSound();
             setTimeout(restoreMoves, 4000);
-            console.log('first', currentCharacter.moves[1].uses);
             currentCharacter.moves[1].use();
             moves2Uses.innerText = `${currentCharacter.moves[1].uses}`
-            console.log('second', currentCharacter.moves[1].uses);
         }
         else{
             window.alert('No uses left!');
@@ -441,39 +542,63 @@ function chooseMove () {
     }
     if(this.id === 'move3'){
         if(currentCharacter.moves[2].uses > 0){
-            characterMove = currentCharacter.moves[0];
+            characterMove = currentCharacter.moves[2];
+            currentCharacter.growAttack();
             chooseCpuMove();
             damageCalc();
             pleaseWait();
             currentCharacter.moves[2].playSound();
             setTimeout(restoreMoves, 4000);
-            console.log('first', currentCharacter.moves[2].uses);
             currentCharacter.moves[2].use();
             moves3Uses.innerText = `${currentCharacter.moves[2].uses}`
-            console.log('second', currentCharacter.moves[2].uses);
         }
         else{
             window.alert('No uses left!');
         }
     }
     if(this.id === 'move4'){
-        console.log('precheck', currentCharacter.moves[2].uses);
         if(currentCharacter.moves[3].uses > 0){
-            characterMove = currentCharacter.moves[0];
+            characterMove = currentCharacter.moves[3];
+            currentCharacter.matrixAttack();
             chooseCpuMove();
             damageCalc();
             pleaseWait();
             currentCharacter.moves[3].playSound();
             setTimeout(restoreMoves, 4000);
-            console.log('first', currentCharacter.moves[3].uses);
             currentCharacter.moves[3].use();
             moves4Uses.innerText = `${currentCharacter.moves[3].uses}`
-            console.log('second', currentCharacter.moves[3].uses);
         }
         else{
             window.alert('No uses left!');
         }
     }
+};
+
+let reset = () => {
+    player1[0][0].style.opacity = '0';
+    temp = player1.splice(0,1);
+    charArray.splice(temp[0][0].dataset.index, 0, temp[0][0]);
+    for(let i = 0; i < characters.length; i++){
+        characters[i].style.display = 'block';
+        characters[i].addEventListener('click', selectChar);
+        characters[i].style.zIndex = '2';
+        characters[i].style.margin = '50px';
+        characters[i].classList.remove('fader-in');
+    };
+    fadeIn();
+    titleText.style.color = 'white';
+    titleText.innerText= 'Select Your Character';
+    titleText.style.marginTop = '75px';
+    titleText.style.display = 'block';
+    health.style.width = '100%';
+    health.style.backgroundColor = 'green';
+    cpuHealthBar.style.width = '100%';
+    cpuHealthBar.style.backgroundColor = 'green';
+    characterName.style.marginTop = '15px';
+    moves1Uses.innerText = '8';
+    moves2Uses.innerText = '5';
+    moves3Uses.innerText = '3';
+    moves4Uses.innerText = '2';
 };
 
 

@@ -23,11 +23,47 @@ h3{
 	}
 }
 @keyframes fade-out{
+	0%{
+		opacity: .0;
+
+	}
 	50%{
-		opacity: .5;
+		opacity: .0;
+		margin-top: -105px;
 	}
 	100%{
 		opacity: 0;
+		display: none;
+		margin-top: -125px;
+	}
+}
+@keyframes basicAttack {
+	0%{
+		transform: translateX(0px);
+	}
+	50%{
+		transform: translateX(500px);
+	}
+	100%{
+		transform: translateX(0px);
+	}
+}
+@keyframes growAttack{
+	50%{
+		transform: scaleX(9);
+		/* transform: scaleY(9); */
+	}
+	100%{
+		transform: scaleX(1);
+		/* transform: scaleY(1); */
+	}
+}
+@keyframes matrixAttack{
+	50%{
+		transform: matrix(1, -0.3, 0, 1, 0, 0)
+	}
+	100%{
+		transform: matrix(0, 0, 0, 0, 0, 0);
 	}
 }
 @keyframes drop-in{
@@ -35,8 +71,16 @@ h3{
 		transform: translateY(400%);
 	}
 }
+@keyframes spinAttack{
+	100%{
+		transform: rotate(1080deg)
+	}
+}
 @keyframes pull-out{
 	transform: translateY(-400%);
+}
+.absolute{
+	position: absolute;
 }
 .allUses{
 	font-weight: bold;
@@ -45,6 +89,18 @@ h3{
 	height: 100vh;
 	width: 100vw;
 	display: flex;
+}
+.basic-attack{
+	animation: basicAttack 2s forwards;
+}
+.spin-attack{
+	animation: spinAttack 2s forwards;
+}
+.matrix-attack{
+	animation: matrixAttack 2s forwards;
+}
+.grow-attack{
+	animation: growAttack 2s forwards;
 }
 .button-box{
 	transition: 4s ease 1s;
@@ -62,6 +118,9 @@ h3{
 	position: absolute;
 	z-index: 3;
 	display: none;
+	/* display: grid; */
+	grid-template-rows: auto auto;
+	grid-template-columns: auto auto;
 }
 .characters{
 	height: 75px;
@@ -111,12 +170,17 @@ h3{
 .cpu-move-result{
 	margin-top: 20%;
 }
+.dmg-amount{
+	font-weight: bold;
+}
 .border{
 	cursor: pointer;
+	display: grid;
 }
 .border:hover{
 	border: solid black 2px;
 }
+
 .health{
 	width: 100%;
 	height: 100%;
@@ -140,6 +204,12 @@ h3{
 .moves{
 	font-weight: bold;
 }
+.none{
+	display: none;
+}
+.puller-out{
+	pull-out 5s ease-in-out 1s forwards;
+}
 .start-button{
 	height: 100px;
 	width: 300px;
@@ -153,12 +223,19 @@ h3{
 .title-text{
 	color: white;
 	font-size: 60pt;
+	z-index: 5;
 	opacity: 0;
 }
 .top-text{
 	color: white;
 	font-size: 60pt;
 	opacity: 0;
+}
+.fader-in{
+	animation: fade-in 2s ease-in-out 2s forwards;
+}
+.fader-out{
+	animation: fade-out 2s ease-in-out 0s forwards;
 }
 #char1{
 	margin: 80px;
